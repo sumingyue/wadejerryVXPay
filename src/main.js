@@ -4,20 +4,17 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import axios from 'axios'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-
-//  自定义全局变量
-import global from 'common/js/global'
-
 import '@/common/styles/index.styl'
 
+import axiosPlugin from 'common/js/axios'
+
+import MuseUI from 'muse-ui'
+import 'muse-ui/dist/muse-ui.css'
+
+Vue.use(MuseUI)
+Vue.use(axiosPlugin)
+
 Vue.config.productionTip = false
-Vue.use(ElementUI)
-// Vue.use(axios)
-axios.defaults.baseURL = global.baseUrl
-Vue.prototype.axios = axios
 
 /* eslint-disable no-new */
 new Vue({

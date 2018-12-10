@@ -3,7 +3,8 @@
     <nav-header></nav-header>
     <div class="dmenu">
       <ul>
-        <li v-for="item of menuList" :key="item.title">
+        <li v-for="item of menuList"
+            :key="item.title">
           <router-link :to="{ path: item.path }">
             <img :src="item.img">
             <p>{{item.title}}</p>
@@ -54,7 +55,6 @@ export default {
   border-left 1px solid #ddd
   border-top 1px solid #ddd
   overflow hidden
-
 .dmenu ul li a
   display block
   width 33%
@@ -65,16 +65,13 @@ export default {
   border-bottom 1px solid #ddd
   border-right 1px solid #ddd
   position relative
-
 .dmenu ul
   // display flex
   // flex-wrap wrap
-
 .dmenu ul li
   // flex 0 0 30%
   // display flex
   // justify-content center
-
 .dmenu ul li img
   width 50px
   height 50px
