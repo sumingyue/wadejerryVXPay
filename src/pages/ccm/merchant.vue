@@ -1,70 +1,109 @@
 <template>
-  <div>
-    <mu-container class="tac">
-      <mu-row>
-        <mu-col span='3'>
-          <div class="menuList">
-            <ul>
-              <li v-for="item of merchant"
-                  :key="item.ccmMenuCode">
-                {{item.ccmMenuName}}
-              </li>
-            </ul>
-          </div>
-        </mu-col>
-        <mu-col span='4'>
-          <good-show :goodsData='goods'></good-show>
-        </mu-col>
-      </mu-row>
-    </mu-container>
+  <div class="tac">
+    <mu-row>
+      <mu-col span='3'
+              class="menuBox">
+        <menu-show :menuList="menuList"></menu-show>
+      </mu-col>
+      <mu-col span='9'>
+        <goods-show :goodsList="goodsList"
+                    :menuList="menuList"></goods-show>
+      </mu-col>
+    </mu-row>
   </div>
 </template>
 
 <script>
-import goodShow from 'components/goods'
+import goodsShow from 'components/food/goods'
+import menuShow from 'components/food/menuList'
 export default {
   components: {
-    goodShow
+    goodsShow,
+    menuShow
   },
   data () {
     return {
-      merchant: [{
+      menuList: [{
         'ccmMenuCode': '1',
-        'ccmMenuName': '鸡腿',
+        'ccmMenuName': '牛肉',
         'merchantId': '1'
       }, {
         'ccmMenuCode': '2',
-        'ccmMenuName': '鸡腿',
+        'ccmMenuName': '鸡肉',
         'merchantId': '1'
       }],
-      goods: [{
-        'wareCode': '1',
-        'wareName': '鸡腿',
-        'price': '9',
-        'photo': '/static/image/hamburger.png',
-        'wareGroup': '4个鸡腿',
-        'ccmMenuId': 1
+      goodsList: [{
+        'ccmMenuCode': '1',
+        'ccmMenuName': '牛肉',
+        'merchantId': '1',
+        'data': [{
+          'wareCode': '1',
+          'wareName': '鸡腿',
+          'price': '9',
+          'photo': '/static/image/hamburger.png',
+          'wareGroup': '4个鸡腿',
+          'ccmMenuId': 1
+        }, {
+          'wareCode': '2',
+          'wareName': '鸡腿',
+          'price': '9',
+          'photo': '/static/image/hamburger.png',
+          'wareGroup': '4个鸡腿',
+          'ccmMenuId': 1
+        }]
       }, {
-        'wareCode': '2',
-        'wareName': '鸡腿',
-        'price': '9',
-        'photo': '/static/image/hamburger.png',
-        'wareGroup': '4个鸡腿',
-        'ccmMenuId': 1
-      }]
+        'ccmMenuCode': '3',
+        'ccmMenuName': '猪肉',
+        'merchantId': '1',
+        'data': [{
+          'wareCode': '1',
+          'wareName': '鸡腿',
+          'price': '9',
+          'photo': '/static/image/hamburger.png',
+          'wareGroup': '4个鸡腿',
+          'ccmMenuId': 1
+        }, {
+          'wareCode': '2',
+          'wareName': '鸡腿',
+          'price': '9',
+          'photo': '/static/image/hamburger.png',
+          'wareGroup': '4个鸡腿',
+          'ccmMenuId': 1
+        }]
+      }, {
+        'ccmMenuCode': '2',
+        'ccmMenuName': '鸡肉',
+        'merchantId': '1',
+        'data': [{
+          'wareCode': '1',
+          'wareName': '鸡腿',
+          'price': '9',
+          'photo': '/static/image/hamburger.png',
+          'wareGroup': '4个鸡腿',
+          'ccmMenuId': 1
+        }, {
+          'wareCode': '2',
+          'wareName': '鸡腿',
+          'price': '9',
+          'photo': '/static/image/hamburger.png',
+          'wareGroup': '4个鸡腿',
+          'ccmMenuId': 1
+        }]
+      }
+      ]
     }
   },
-  created () {
-    this.axios.post('/mobile/ccm/merchant', {}).then(res => {
-      this.merchant = res.data
-    })
-  },
+  // created () {
+  //   this.axios.post('/mobile/ccm/merchant', {}).then(res => {
+  //     this.merchant = res.data
+  //   })
+  // },
   methods: {
-    getGoods () {
-      this.axios.post('/mobile/ccm/diancan/result').then(res => {
-        this.goods = res.data
-      })
-    }
+    // getGoods () {
+    //   this.axios.post('/mobile/ccm/diancan/result').then(res => {
+    //     this.goods = res.data
+    //   })
+    // }
   }
 }
 </script>
@@ -73,9 +112,4 @@ export default {
 .tac
   height 100%
   background white
-.menuList
-  overflow-y auto
-  height 100%
-  background-color #f8f8f8
-  padding-bottom 10.666667vw
 </style>

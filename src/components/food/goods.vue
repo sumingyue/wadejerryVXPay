@@ -1,0 +1,113 @@
+<template>
+  <div class="foodContainer">
+    <dl v-for="(item) of goodsList"
+        :key="item.ccmMenuCode"
+        class="menu">
+      <dt class="menuDt">
+        <span>
+          {{item.ccmMenuName}}
+        </span>
+      </dt>
+      <dd v-for="ite of item.data"
+          :key="ite.wareCode"
+          class="menuitem">
+        <div class="foodBox">
+          <span class="foodLogo">
+            <img :src="ite.photo"
+                 :alt="ite.wareName">
+          </span>
+          <section class="foodInfo">
+            <p class="foodName">
+              <span class="foodNameText">{{ite.wareName}}</span>
+            </p>
+            <p class="doosDesc">{{ite.wareGroup}}</p>
+          </section>
+        </div>
+      </dd>
+    </dl>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['goodsList', 'menuList'],
+  data () {
+    return {
+      num: 1
+    }
+  },
+  created () {
+    console.log(this.menuList)
+    console.log(this.goodsList)
+  }
+
+}
+</script>
+
+<style lang="stylus" scoped>
+.foodContainer
+  height 100%
+  padding-bottom 10.666667vw
+  overflow-y auto
+  -webkit-overflow-scrolling touch
+.menuDt
+  position relative
+  margin-left 2.666667vw
+  padding 2vw 8vw 2vw 0
+.menuDt span
+  -webkit-flex 1
+  flex 1
+  color #999
+  font-size 0.266667rem
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
+.menuitem
+  position relative
+  margin 0
+  min-height 30.666667vw
+  padding-left 2.666667vw
+.foodBox
+  padding 2.666667vw 0
+  margin-bottom 0.133333vw
+  display -webkit-flex
+  display flex
+  min-height 27.466667vw
+  position relative
+.foodLogo
+  width 25.333333vw
+  height 25.333333vw
+  -webkit-flex none
+  flex none
+  margin-right 2.666667vw
+  position relative
+.foodLogo img
+  width 100%
+  border-radius 0.533333vw
+.foodInfo
+  -webkit-flex 1
+  flex 1
+  position relative
+  padding-bottom 6.666667vw
+  padding-right 4vw
+.foodName
+  position relative
+  padding-right 4vw
+  display flex
+  align-items start
+.foodNameText
+  font-weight 700
+  overflow hidden
+  font-size 0.4rem
+  white-space nowrap
+  width 40vw
+  text-overflow ellipsis
+.doosDesc
+  margin 1.333333vw 0
+  font-size 0.266667rem
+  color #999
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+  width 42.666667vw
+</style>
