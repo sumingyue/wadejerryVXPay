@@ -1,4 +1,5 @@
 <template>
+  <!-- 商户目录组件 -->
   <div class="menuList col col-3">
     <ul>
       <li v-for="(item, index) of menuList"
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+
 export default {
   props: ['menuList'],
   data () {
@@ -21,6 +23,8 @@ export default {
   },
   methods: {
     addAvtive (index) {
+      // console.log(mapGetters(['getMenuList']))
+      console.log(this.$store.getters['foods/getMenuList'])
       console.log(index)
       this.activeMer = index
     }
@@ -31,11 +35,12 @@ export default {
 <style lang="stylus" scoped>
 .menuList
   overflow-y auto
-  height 100vh
+  height 100%
   background-color #f8f8f8
   padding-bottom 10.666667vw
   position fixed
   padding 0
+  width 25%
 .menuList ul
   flex none
   position relative

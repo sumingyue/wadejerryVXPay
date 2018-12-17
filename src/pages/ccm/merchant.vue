@@ -1,25 +1,30 @@
 <template>
+  <!-- 点餐页面 -->
   <div class="tac">
-    <mu-row>
-      <mu-col span='3'
-              class="menuBox">
-        <menu-show :menuList="menuList"></menu-show>
-      </mu-col>
-      <mu-col span='9'>
-        <goods-show :goodsList="goodsList"
-                    :menuList="menuList"></goods-show>
-      </mu-col>
-    </mu-row>
+    <div class="left">
+      <menu-show :menuList="menuList"></menu-show>
+
+    </div>
+    <div class="right">
+
+      <goods-show :goodsList="goodsList"
+                  :menuList="menuList"></goods-show>
+    </div>
+    <div class="bottom">
+      <goods-active></goods-active>
+    </div>
   </div>
 </template>
 
 <script>
 import goodsShow from 'components/food/goods'
 import menuShow from 'components/food/menuList'
+import goodsActive from 'components/food/goodsActive'
 export default {
   components: {
     goodsShow,
-    menuShow
+    menuShow,
+    goodsActive
   },
   data () {
     return {
@@ -112,4 +117,12 @@ export default {
 .tac
   height 100%
   background white
+  display flex
+.left
+  // float left
+  width 25%
+.right
+  // float right
+  width 75%
+  margin-left 25%
 </style>

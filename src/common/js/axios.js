@@ -3,7 +3,8 @@ import axios from 'axios'
 import qs from 'qs'
 // import router from "vue-router";
 import global from 'common/js/global'
-import Toast from 'muse-ui-toast'
+// import Toast from 'muse-ui-toast'
+import Notify from 'vant'
 
 const Axios = axios.create({
   baseURL: global.baseUrl,
@@ -36,13 +37,11 @@ Axios.interceptors.request.use(
   },
   error => {
     // error 的回调信息,看贵公司的定义
-    // Message({
-    //   //  饿了么的消息弹窗组件,类似toast
-    //   showClose: true,
-    //   message: error,
-    //   type: 'error'
-    // })
-    Toast.error(error)
+    Notify({
+      message: error,
+      duration: 1000,
+      background: '#1989fa'
+    })
     return Promise.reject(error)
   }
 )
@@ -52,19 +51,21 @@ Axios.interceptors.response.use(
   res => {
     // 对响应数据做些事
     if (!res.data) {
-      // Message({
-      //   //  饿了么的消息弹窗组件,类似toast
-      //   showClose: true,
-      //   message: res.msg,
-      //   type: 'error'
-      // })
-      Toast.error(res.msg)
+      Notify({
+        message: res.msg,
+        duration: 1000,
+        background: '#1989fa'
+      })
       return Promise.reject(res)
     }
     return res
   },
   error => {
-    Toast.error(error)
+    Notify({
+      message: error,
+      duration: 1000,
+      background: '#1989fa'
+    })
     // 用户登录的时候会拿到一个基础信息,比如用户名,token,过期时间戳
     // 直接丢localStorage或者sessionStorage
 

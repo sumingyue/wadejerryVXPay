@@ -1,4 +1,5 @@
 <template>
+  <!-- 商品目录组件 -->
   <div class="foodContainer">
     <dl v-for="(item) of goodsList"
         :key="item.ccmMenuCode"
@@ -21,6 +22,13 @@
               <span class="foodNameText">{{ite.wareName}}</span>
             </p>
             <p class="doosDesc">{{ite.wareGroup}}</p>
+
+            <div class="priceBox">
+              <span class="itePrice">￥{{ite.price}}</span>
+
+              <counter :foodInfo='ite'></counter>
+            </div>
+
           </section>
         </div>
       </dd>
@@ -29,7 +37,10 @@
 </template>
 
 <script>
+import counter from 'components/food/counter'
+
 export default {
+  components: { counter },
   props: ['goodsList', 'menuList'],
   data () {
     return {
@@ -45,6 +56,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+imgWidth = 25.333333vw
+.itePrice
+  color #ff5339
+.priceBox
+  display flex
+  justify-content space-between
+  align-items center
 .foodContainer
   height 100%
   padding-bottom 10.666667vw
@@ -75,8 +93,8 @@ export default {
   min-height 27.466667vw
   position relative
 .foodLogo
-  width 25.333333vw
-  height 25.333333vw
+  width imgWidth
+  height imgWidth
   -webkit-flex none
   flex none
   margin-right 2.666667vw
@@ -90,6 +108,10 @@ export default {
   position relative
   padding-bottom 6.666667vw
   padding-right 4vw
+  display flex
+  flex-direction column
+  justify-content space-between
+  height imgWidth
 .foodName
   position relative
   padding-right 4vw

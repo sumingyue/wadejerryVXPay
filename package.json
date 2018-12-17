@@ -12,10 +12,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "muse-ui": "^3.0.1",
-    "muse-ui-toast": "^0.3.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
+    "vant": "^1.4.8",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
@@ -66,7 +65,8 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "yaml-loader": "^0.5.0"
   },
   "engines": {
     "node": ">= 6.0.0",

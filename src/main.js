@@ -9,10 +9,11 @@ import '@/common/styles/index.styl'
 
 import axiosPlugin from 'common/js/axios'
 
-import MuseUI from 'muse-ui'
-import 'muse-ui/dist/muse-ui.css'
+import Vant from 'vant'
+import 'vant/lib/index.css'
 
-Vue.use(MuseUI)
+Vue.use(Vant)
+
 Vue.use(axiosPlugin)
 
 Vue.config.productionTip = false
