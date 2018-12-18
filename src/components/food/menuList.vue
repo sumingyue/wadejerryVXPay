@@ -3,7 +3,7 @@
   <div class="menuList col col-3">
     <ul>
       <li v-for="(item, index) of menuList"
-          :key="item.ccmMenuCode"
+          :key="item.ccmMenuId"
           @click="addAvtive(index)"
           :class="{activeMer:index==activeMer}">
         {{item.ccmMenuName}}
@@ -23,8 +23,6 @@ export default {
   },
   methods: {
     addAvtive (index) {
-      // console.log(mapGetters(['getMenuList']))
-      console.log(this.$store.getters['foods/getMenuList'])
       console.log(index)
       this.activeMer = index
     }

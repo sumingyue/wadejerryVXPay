@@ -1,17 +1,17 @@
 <template>
   <!-- 商品目录组件 -->
   <div class="foodContainer">
-    <dl v-for="(item) of goodsList"
-        :key="item.ccmMenuCode"
+    <dl v-for="(item) of menuList"
+        :key="item.ccmMenuId"
         class="menu">
       <dt class="menuDt">
         <span>
           {{item.ccmMenuName}}
         </span>
       </dt>
-      <dd v-for="ite of item.data"
-          :key="ite.wareCode"
-          class="menuitem">
+      <dd class="menuitem"
+          v-for="ite of filterList(item.ccmMenuId)"
+          :key="ite.wareCode">
         <div class="foodBox">
           <span class="foodLogo">
             <img :src="ite.photo"
@@ -47,11 +47,20 @@ export default {
       num: 1
     }
   },
-  created () {
-    console.log(this.menuList)
-    console.log(this.goodsList)
+  methods: {
+    filterList (id) {
+      let valArr = this.goodsList.filter(x => {
+        return x.ccmMenuId === id
+      })
+      return valArr
+    }
+  },
+  watch: {
+    goodsList (newV, oldV) {
+      // console.log(oldV)
+      // console.log(newV)
+    }
   }
-
 }
 </script>
 

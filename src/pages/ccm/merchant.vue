@@ -1,18 +1,30 @@
 <template>
   <!-- 点餐页面 -->
-  <div class="tac">
-    <div class="left">
-      <menu-show :menuList="menuList"></menu-show>
+  <div>
+    <van-tabs swipeable
+              color='rgb(35, 149, 255)'
+              sticky>
+      <van-tab title="点餐">
+        <div class="order">
+          <div class="left">
+            <menu-show :menuList="menuList"></menu-show>
 
-    </div>
-    <div class="right">
+          </div>
+          <div class="right">
 
-      <goods-show :goodsList="goodsList"
-                  :menuList="menuList"></goods-show>
-    </div>
-    <div class="bottom">
-      <goods-active></goods-active>
-    </div>
+            <goods-show :goods-list="goodsList"
+                        :menu-list="menuList"></goods-show>
+          </div>
+          <div class="bottom">
+            <goods-active></goods-active>
+          </div>
+        </div>
+      </van-tab>
+      <van-tab title="商家">
+        商家
+      </van-tab>
+
+    </van-tabs>
   </div>
 </template>
 
@@ -28,93 +40,22 @@ export default {
   },
   data () {
     return {
-      menuList: [{
-        'ccmMenuCode': '1',
-        'ccmMenuName': '牛肉',
-        'merchantId': '1'
-      }, {
-        'ccmMenuCode': '2',
-        'ccmMenuName': '鸡肉',
-        'merchantId': '1'
-      }],
-      goodsList: [{
-        'ccmMenuCode': '1',
-        'ccmMenuName': '牛肉',
-        'merchantId': '1',
-        'data': [{
-          'wareCode': '1',
-          'wareName': '鸡腿',
-          'price': '9',
-          'photo': '/static/image/hamburger.png',
-          'wareGroup': '4个鸡腿',
-          'ccmMenuId': 1
-        }, {
-          'wareCode': '2',
-          'wareName': '鸡腿',
-          'price': '9',
-          'photo': '/static/image/hamburger.png',
-          'wareGroup': '4个鸡腿',
-          'ccmMenuId': 1
-        }]
-      }, {
-        'ccmMenuCode': '3',
-        'ccmMenuName': '猪肉',
-        'merchantId': '1',
-        'data': [{
-          'wareCode': '1',
-          'wareName': '鸡腿',
-          'price': '9',
-          'photo': '/static/image/hamburger.png',
-          'wareGroup': '4个鸡腿',
-          'ccmMenuId': 1
-        }, {
-          'wareCode': '2',
-          'wareName': '鸡腿',
-          'price': '9',
-          'photo': '/static/image/hamburger.png',
-          'wareGroup': '4个鸡腿',
-          'ccmMenuId': 1
-        }]
-      }, {
-        'ccmMenuCode': '2',
-        'ccmMenuName': '鸡肉',
-        'merchantId': '1',
-        'data': [{
-          'wareCode': '1',
-          'wareName': '鸡腿',
-          'price': '9',
-          'photo': '/static/image/hamburger.png',
-          'wareGroup': '4个鸡腿',
-          'ccmMenuId': 1
-        }, {
-          'wareCode': '2',
-          'wareName': '鸡腿',
-          'price': '9',
-          'photo': '/static/image/hamburger.png',
-          'wareGroup': '4个鸡腿',
-          'ccmMenuId': 1
-        }]
-      }
-      ]
+      menuList: [],
+      goodsList: []
     }
   },
-  // created () {
-  //   this.axios.post('/mobile/ccm/merchant', {}).then(res => {
-  //     this.merchant = res.data
-  //   })
-  // },
-  methods: {
-    // getGoods () {
-    //   this.axios.post('/mobile/ccm/diancan/result').then(res => {
-    //     this.goods = res.data
-    //   })
-    // }
+  created () {
+    this.axios.post('/mobile/ccm/diancan/result').then(res => {
+      let data = res.data
+      this.goodsList = data.wareListDtoList
+      this.menuList = data.ccmMenuDtoList
+    })
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.tac
+.order
   height 100%
   background white
   display flex

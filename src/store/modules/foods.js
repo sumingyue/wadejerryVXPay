@@ -2,23 +2,26 @@ export default {
   namespaced: true,
   state: {
     nowMenu: 0,
-    allPrice: 0,
-    goodsList: [{
-      goodsId: '',
-      goodsNum: '',
-      goodsName: '',
-      goodsPrice: ''
-    }]
+    goodsList: []
   },
   getters: {
-    getMenuList: state => state.menuList,
     getGoodsList: state => state.goodsList,
-    getAllPirce: state => state.allPrice
+    getAllPirce: state => {
+      let price = 0
+      state.goodsList.forEach(item => {
+        price += (parseInt(item.num) * parseInt(item.price))
+      })
+      return price
+    },
+    getNum: state => {
+      let num = 0
+      for (const item of state.goodsList) {
+        num += Number(item.num)
+      }
+      return num
+    }
   },
   mutations: {
-    setAllPrice(state, val) {
-      state.allPrice = val
-    },
     setMenuList(state, val) {
       state.menuList = val
     },

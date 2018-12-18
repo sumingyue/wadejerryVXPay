@@ -37,17 +37,44 @@ export default {
   methods: {
     addNum () {
       this.buyNum++
-      let allPrice = this.$store.getters['foods/getAllPirce']
-      allPrice += Number(this.foodInfo.price)
-      this.$store.commit('foods/setAllPrice', allPrice)
+      console.log(`+ : ${this.buyNum}`)
+      let goodsList = this.$store.getters['foods/getGoodsList']
+      console.log(goodsList)
+
+      let index = 0
+      goodsList.map(item => {
+        if (item.id === this.foodInfo.wareCode) {
+          item.num++
+        } else {
+          index++
+        }
+      })
+
+      if (index === goodsList.length) {
+        goodsList.push({
+          id: this.foodInfo.wareCode,
+          num: 1,
+          name: this.foodInfo.wareName,
+          price: this.foodInfo.price
+        })
+      }
+
+      this.$store.commit('foods/setGoodsList', goodsList)
 
       this.buyPrice = this.buyNum * this.foodInfo.price
     },
     minusNum () {
       this.buyNum--
-      let allPrice = this.$store.getters['foods/getAllPirce']
-      allPrice -= Number(this.foodInfo.price)
-      this.$store.commit('foods/setAllPrice', allPrice)
+      console.log(`- : ${this.buyNum}`)
+      let goodsList = this.$store.getters['foods/getGoodsList']
+
+      goodsList.map(item => {
+        if (item.id === this.foodInfo.wareCode) {
+          item.num--
+        }
+      })
+
+      this.$store.commit('foods/setGoodsList', goodsList)
     }
   }
 }
@@ -62,5 +89,6 @@ export default {
   display flex
   align-items center
 .numText
-  margin 0 5px
+  margin 0 8px
+  font-size 14px
 </style>
