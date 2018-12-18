@@ -3,7 +3,8 @@
   <div class="foodContainer">
     <dl v-for="(item) of menuList"
         :key="item.ccmMenuId"
-        class="menu">
+        class="menu"
+        :id='`foodDl${item.ccmMenuId}`'>
       <dt class="menuDt">
         <span>
           {{item.ccmMenuName}}
@@ -73,10 +74,12 @@ imgWidth = 25.333333vw
   justify-content space-between
   align-items center
 .foodContainer
-  height 100%
-  padding-bottom 10.666667vw
   overflow-y auto
   -webkit-overflow-scrolling touch
+  // height 100vh
+  height 100%
+  padding-bottom 10.666667vw
+  position relative
 .menuDt
   position relative
   margin-left 2.666667vw

@@ -30,20 +30,50 @@ export default {
   props: ['foodInfo'],
   data () {
     return {
-      buyNum: 0,
-      buyPrice: 0
+      buyNum: this.foodInfo.num || 0,
+      buyPrice: 0,
+      foodId: this.foodInfo.id || this.foodInfo.wareCode
     }
   },
+  computed: {
+    listenGoods () {
+      return this.$store.getters['foods/getGoodsList']
+    }
+  },
+  watch: {
+    listenGoods: {
+      handler (newV, oldV) {
+        let index = 0
+        for (const item of newV) {
+          if (item.id === this.foodId) {
+            this.buyNum = item.num
+          } else {
+            index++
+          }
+        }
+        if (index === newV.length) {
+          this.buyNum = 0
+        }
+      },
+      deep: true
+    }
+  },
+  // created () {
+  //   let goodsList = this.$store.getters['foods/getGoodsList']
+  //   for (const item of goodsList) {
+  //     if (item.id === this.foodInfo.wareCode || this.foodInfo.id) {
+  //       this.buyNum = item.num
+  //     }
+  //   }
+  // },
   methods: {
     addNum () {
-      this.buyNum++
-      console.log(`+ : ${this.buyNum}`)
+      // this.buyNum++
       let goodsList = this.$store.getters['foods/getGoodsList']
-      console.log(goodsList)
-
+      console.log(this.foodId)
       let index = 0
       goodsList.map(item => {
-        if (item.id === this.foodInfo.wareCode) {
+        if (item.id === this.foodId) {
           item.num++
         } else {
           index++
@@ -60,16 +90,13 @@ export default {
       }
 
       this.$store.commit('foods/setGoodsList', goodsList)
-
-      this.buyPrice = this.buyNum * this.foodInfo.price
     },
     minusNum () {
-      this.buyNum--
-      console.log(`- : ${this.buyNum}`)
+      // this.buyNum--
       let goodsList = this.$store.getters['foods/getGoodsList']
 
       goodsList.map(item => {
-        if (item.id === this.foodInfo.wareCode) {
+        if (item.id === this.foodId) {
           item.num--
         }
       })

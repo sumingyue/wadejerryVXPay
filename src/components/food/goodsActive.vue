@@ -1,38 +1,56 @@
 <template>
   <!-- 点餐合计组件 -->
-  <div class="container">
-    <span class="shopCar"
-          ref="shopCar">
-      <van-icon name="cart"
-                :info="goodsNum"
-                color='white'
-                class="carIcon"
-                size="23px" />
-      <!-- <span class="goodsNum">1</span> -->
-    </span>
-    <div class="content">
-      <p class="price">
-        <span>￥{{allPrice}}</span>
-      </p>
-      <p class="note">另需配送费3.6元</p>
+  <div>
+    <van-popup position="bottom"
+               v-model="showPop">
+      <food-pop></food-pop>
+    </van-popup>
+    <div class="container">
+      <span class="shopCar"
+            :class="{rubberBand: rubberBand}"
+            @animationend="rubberBand = false"
+            @click="clickShopCar"
+            ref="shopCar">
+        <van-icon name="cart"
+                  :info="goodsNum"
+                  color='white'
+                  class="carIcon"
+                  size="23px" />
+        <!-- <span class="goodsNum">1</span> -->
+      </span>
+      <div class="content">
+        <p class="price">
+          <span>￥{{allPrice}}</span>
+        </p>
+        <p class="note">另需配送费3.6元</p>
+      </div>
+      <a role="button"
+         class="goPay"><span>去结算</span>
+      </a>
     </div>
-    <a role="button"
-       class="goPay"><span>去结算</span>
-    </a>
   </div>
 </template>
 
 <script>
+import foodPop from 'components/food/foodPop'
 export default {
+  components: { foodPop },
   data () {
     return {
       allPrice: 0,
-      goodsNum: 0
+      goodsNum: 0,
+      rubberBand: false,
+      showPop: false
     }
   },
   computed: {
     listenFoods () {
       return this.$store.getters['foods/getGoodsList']
+    }
+  },
+  methods: {
+    clickShopCar () {
+      this.showPop = true
     }
   },
   watch: {
@@ -41,9 +59,9 @@ export default {
         this.goodsNum = this.$store.getters['foods/getNum']
         this.allPrice = this.$store.getters['foods/getAllPirce']
 
-        let ele = this.$refs.shopCar
-        ele.style.animationName = 'rubberBand'
-        ele.style.duration = '2s'
+        this.$nextTick(() => {
+          this.rubberBand = true
+        })
       },
       deep: true
     }
@@ -53,6 +71,7 @@ export default {
 
 <style lang="stylus" scoped>
 .container
+  z-index 9999
   position fixed
   right 0
   bottom 0

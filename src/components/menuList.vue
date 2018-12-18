@@ -23,10 +23,10 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .menu
   background-color rgb(255, 255, 255)
-  // margin 0 3px
+  margin 20px 10px
   overflow hidden
 .list-menu
   border-top 1px solid #ddd

@@ -4,7 +4,7 @@
     <ul>
       <li v-for="(item, index) of menuList"
           :key="item.ccmMenuId"
-          @click="addAvtive(index)"
+          @click="addAvtive(index, item.ccmMenuId)"
           :class="{activeMer:index==activeMer}">
         {{item.ccmMenuName}}
       </li>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-
+import scroll from 'common/js/scroll.js'
 export default {
   props: ['menuList'],
   data () {
@@ -22,9 +22,14 @@ export default {
     }
   },
   methods: {
-    addAvtive (index) {
-      console.log(index)
+    addAvtive (index, id) {
       this.activeMer = index
+      let ele = document.querySelector(`#foodDl${id}`)
+      let box = document.querySelector(`.foodContainer`)
+      this.$nextTick(() => {
+        scroll(box.offsetTop, ele.offsetTop)
+        // window.scrollTo(0, ele.offsetTop)
+      })
     }
   }
 }
