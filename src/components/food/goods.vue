@@ -27,7 +27,8 @@
             <div class="priceBox">
               <span class="itePrice">￥{{ite.price}}</span>
 
-              <counter :foodInfo='ite'></counter>
+              <counter :foodInfo='ite'
+                       class="counterGoods"></counter>
             </div>
 
           </section>
@@ -67,6 +68,8 @@ export default {
 
 <style lang="stylus" scoped>
 imgWidth = 25.333333vw
+.counterGoods
+  margin-right 10px
 .itePrice
   color #ff5339
 .priceBox

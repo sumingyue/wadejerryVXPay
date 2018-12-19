@@ -24,9 +24,10 @@
         </p>
         <p class="note">另需配送费3.6元</p>
       </div>
-      <a role="button"
-         class="goPay"><span>去结算</span>
-      </a>
+      <router-link role="button"
+                   to="payfood"
+                   class="goPay"><span>去结算</span>
+      </router-link>
     </div>
   </div>
 </template>
@@ -57,7 +58,7 @@ export default {
     listenFoods: {
       handler (newValue, oldValue) {
         this.goodsNum = this.$store.getters['foods/getNum']
-        this.allPrice = this.$store.getters['foods/getAllPirce']
+        this.allPrice = this.$store.getters['foods/getAllPrice']
 
         this.$nextTick(() => {
           this.rubberBand = true

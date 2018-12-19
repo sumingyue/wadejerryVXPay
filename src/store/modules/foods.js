@@ -6,7 +6,7 @@ export default {
   },
   getters: {
     getGoodsList: state => state.goodsList,
-    getAllPirce: state => {
+    getAllPrice: state => {
       let price = 0
       state.goodsList.forEach(item => {
         price += (parseInt(item.num) * parseInt(item.price))

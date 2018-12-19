@@ -28,7 +28,7 @@ export default {
         imgSrc: require('assets/image/mobile/ccm_2.jpg')
       }, {
         title: '餐厅订餐',
-        path: 'ccm/merchant',
+        path: 'ccm/food/merchant',
         imgSrc: require('assets/image/mobile/ccm_3.jpg')
       }, {
         title: '消费记录',

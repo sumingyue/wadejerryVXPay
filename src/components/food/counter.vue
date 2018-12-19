@@ -70,7 +70,6 @@ export default {
     addNum () {
       // this.buyNum++
       let goodsList = this.$store.getters['foods/getGoodsList']
-      console.log(this.foodId)
       let index = 0
       goodsList.map(item => {
         if (item.id === this.foodId) {
@@ -85,7 +84,9 @@ export default {
           id: this.foodInfo.wareCode,
           num: 1,
           name: this.foodInfo.wareName,
-          price: this.foodInfo.price
+          price: this.foodInfo.price,
+          desc: this.foodInfo.wareGroup,
+          photo: this.foodInfo.photo
         })
       }
 
@@ -111,7 +112,7 @@ export default {
 .content
   display flex
   justify-content flex-end
-  padding-right 10px
+  // padding-right 10px
 .ifContent
   display flex
   align-items center
