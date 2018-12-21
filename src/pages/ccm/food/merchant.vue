@@ -44,12 +44,24 @@ export default {
       goodsList: []
     }
   },
+  computed: {
+    getGoodsData () {
+      return this.$store.getters['foods/getGoodsData']
+    },
+    getMenuList () {
+      return this.$store.getters['foods/getMenuList']
+    }
+  },
+  watch: {
+    getGoodsData (val) {
+      this.goodsList = val
+    },
+    getMenuList (val) {
+      this.menuList = val
+    }
+  },
   created () {
-    this.axios.post('/mobile/ccm/diancan/result').then(res => {
-      let data = res.data
-      this.goodsList = data.wareListDtoList
-      this.menuList = data.ccmMenuDtoList
-    })
+    this.$store.dispatch('foods/saveGoodsList')
   }
 }
 </script>

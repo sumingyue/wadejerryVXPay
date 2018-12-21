@@ -42,6 +42,9 @@ export default {
     onSubmit () {
       this.$toast.success('submit')
     }
+  },
+  created () {
+    this.$store.dispatch('address/saveAddress')
   }
 }
 </script>

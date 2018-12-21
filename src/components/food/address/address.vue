@@ -7,11 +7,11 @@
           <span>订单配送至</span>
         </p>
         <p class="address-detail">
-          <span class="address-text">美庐郡园社区15幢腊台山路3号美庐郡园社区 15栋一单元601</span>
+          <span class="address-text">{{defaultAddress.address}}</span>
           <van-icon name="arrow" />
         </p>
-        <h2 class="address-name"><span>邱卓然</span>
-          <span class="phone">15387077841</span></h2>
+        <h2 class="address-name"><span>{{defaultAddress.name}}</span>
+          <span class="phone">{{defaultAddress.tel}}</span></h2>
       </div>
     </section>
   </div>
@@ -22,6 +22,11 @@ export default {
   methods: {
     goAddress () {
       this.$router.push({ path: '/ccm/food/address' })
+    }
+  },
+  computed: {
+    defaultAddress () {
+      return this.$store.getters['address/getDefaultAddress']
     }
   }
 }

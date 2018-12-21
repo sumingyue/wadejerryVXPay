@@ -5,16 +5,26 @@
                       show-delete
                       show-set-default
                       show-search-result
-                      :search-result="searchResult"
                       @save="onSave"
-                      @delete="onDelete"
-                      @change-detail="onChangeDetail" />
+                      @delete="onDelete" />
   </div>
 </template>
 
 <script>
 export default {
-
+  computed: {
+    areaList () {
+      return this.$store.getters['address/getAreaList']
+    }
+  },
+  methods: {
+    onSave (res) {
+      console.log(res)
+    },
+    onDelete (res) {
+      console.log(res)
+    }
+  }
 }
 </script>
 

@@ -4,7 +4,9 @@ import qs from 'qs'
 // import router from "vue-router";
 import global from 'common/js/global'
 // import Toast from 'muse-ui-toast'
-import Notify from 'vant'
+import {
+  Notify
+} from 'vant'
 
 const Axios = axios.create({
   baseURL: global.baseUrl,
@@ -124,10 +126,11 @@ Axios.interceptors.response.use(
 )
 
 // 对axios的实例重新封装成一个plugin ,方便 Vue.use(xxxx)
-export default {
-  install: function (Vue, Option) {
-    Object.defineProperty(Vue.prototype, 'axios', {
-      value: Axios
-    })
-  }
-}
+// export default {
+//   install: function (Vue, Option) {
+//     Object.defineProperty(Vue.prototype, 'axios', {
+//       value: Axios
+//     })
+//   }
+// }
+export default Axios

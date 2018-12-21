@@ -1,11 +1,16 @@
+import api from 'api'
+
 export default {
   namespaced: true,
   state: {
     nowMenu: 0,
-    goodsList: []
+    goodsList: [],
+    goodsData: [],
+    menuList: []
   },
   getters: {
     getGoodsList: state => state.goodsList,
+    getGoodsData: state => state.goodsData,
     getAllPrice: state => {
       let price = 0
       state.goodsList.forEach(item => {
@@ -13,6 +18,7 @@ export default {
       })
       return price
     },
+    getMenuList: state => state.menuList,
     getNum: state => {
       let num = 0
       for (const item of state.goodsList) {
@@ -27,7 +33,17 @@ export default {
     },
     setGoodsList(state, val) {
       state.goodsList = val
+    },
+    setGoodsData(state, val) {
+      state.goodsData = val
     }
   },
-  actions: {}
+  actions: {
+    saveGoodsList(ctx) {
+      api.foods.goodsList().then(res => {
+        ctx.commit('setGoodsData', res.data.wareListDtoList)
+        ctx.commit('setMenuList', res.data.ccmMenuDtoList)
+      })
+    }
+  }
 }
