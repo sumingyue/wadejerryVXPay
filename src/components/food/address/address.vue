@@ -19,14 +19,30 @@
 
 <script>
 export default {
+  data () {
+    return {
+      defaultAddress: {}
+    }
+  },
   methods: {
     goAddress () {
       this.$router.push({ path: '/ccm/food/address' })
     }
   },
   computed: {
-    defaultAddress () {
+    getDefaultAddress () {
       return this.$store.getters['address/getDefaultAddress']
+    },
+    getAddressChoose () {
+      return this.$store.getters['address/getAddressChoose']
+    }
+  },
+  watch: {
+    getDefaultAddress (val) {
+      this.defaultAddress = val
+    },
+    getAddressChoose (val) {
+      this.defaultAddress = val
     }
   }
 }

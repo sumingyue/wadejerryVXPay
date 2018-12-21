@@ -2,8 +2,6 @@
   <div>
     <van-address-list v-model="chosenAddressId"
                       :list="getAddress"
-                      :disabled-list="getDisabledList"
-                      disabled-text="以下地址超出配送范围"
                       @select="changAddress"
                       @add="onAdd"
                       @edit="onEdit" />
@@ -21,9 +19,6 @@ export default {
   computed: {
     getAddress () {
       return this.$store.getters['address/getAddress']
-    },
-    getDisabledList () {
-      return this.$store.getters['address/getDisabledList']
     }
   },
   watch: {
@@ -34,13 +29,17 @@ export default {
   methods: {
     onAdd () {
       console.log('add')
+      this.$store.commit('address/setAddressEdi', {})
       this.$router.push({ path: '/ccm/food/addressEdi' })
     },
-    onEdit () {
+    onEdit (val) {
       console.log('edi')
+      this.$store.commit('address/setAddressEdi', val)
+      this.$router.push({ path: '/ccm/food/addressEdi' })
     },
-    changAddress () {
-      // this.$store
+    changAddress (val) {
+      this.$store.commit('address/setAddressChoose', val)
+      this.$router.push({ path: '/ccm/food/payfood' })
     }
   }
 }
