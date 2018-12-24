@@ -40,6 +40,13 @@ export default {
   },
   methods: {
     onSubmit () {
+      let goods = this.$store.getters['foods/getGoodsList']
+      let merchant = this.$store.getters['merchant/getChooseMerch']
+      let data = {}
+      data.merchantId = merchant.merchantId
+      data.totalAmout = this.$store.getters['foods/getAllPrice']
+      data.number = this.$store.getters['foods/getNum']
+      console.log(goods)
       this.$toast.success('submit')
     }
   },

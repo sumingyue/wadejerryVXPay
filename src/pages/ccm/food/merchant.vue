@@ -1,19 +1,20 @@
 <template>
-  <van-list v-model="loading"
+  <!-- <van-list v-model="loading"
             :finished="finished"
             finished-text="没有更多了"
-            @load="onLoad">
+            @load="onLoad"> -->
+  <van-cell-group>
     <van-cell v-for="item in list"
               :key="item.merchantId"
-              @click="chooseMerch(item)">
+              @click="chooseMerch(item)"
+              is-link>
       <template>
-        <p>{{item.ccmMenuName}}</p>
-        <p>{{item.ccmMenuName}}</p>
-        <p>{{item.ccmMenuName}}</p>
-        <p>{{item.ccmMenuName}}</p>
+        <h2 class="title">{{item.ccmMenuName}}</h2>
+        <p class="note">{{item.note}}</p>
       </template>
     </van-cell>
-  </van-list>
+  </van-cell-group>
+  <!-- </van-list> -->
 </template>
 
 <script>
@@ -23,7 +24,7 @@ export default {
       list: [],
       loading: false,
       finished: false,
-      length: 8
+      length: 10
     }
   },
   computed: {
@@ -61,4 +62,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~common/styles/public'
+.title
+  font-size $font-size-medium-x
+.note
+  font-size $font-size-small
+  color $color-dialog-background
 </style>

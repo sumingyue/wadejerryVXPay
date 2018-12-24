@@ -25,6 +25,15 @@ export default {
         num += Number(item.num)
       }
       return num
+    },
+    getParData: state => {
+      let data = []
+      for (const item of state.goodsList) {
+        let par = {}
+        par.wareCode = item.id
+        par.total = item.num
+        par.menuId = item.id
+      }
     }
   },
   mutations: {

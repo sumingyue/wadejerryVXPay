@@ -36,6 +36,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~common/styles/public'
 .menuList
   overflow-y auto
   height 100%
@@ -50,7 +51,7 @@ export default {
   z-index 0
 .menuList ul li
   text-align center
-  font-size 0.32rem
+  font-size $font-size-small
   color #666
   line-height 1.2em
   padding 4.666667vw 2vw

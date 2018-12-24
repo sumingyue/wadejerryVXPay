@@ -3,7 +3,8 @@
   <div>
     <van-tabs swipeable
               color='rgb(35, 149, 255)'
-              sticky>
+              sticky
+              ref="tabs">
       <van-tab title="点餐">
         <div class="order">
           <div class="left">
@@ -20,8 +21,15 @@
           </div>
         </div>
       </van-tab>
-      <van-tab title="商家">
-        {{getChooseMerch.ccmMenuName}}
+      <van-tab title="商家"
+               class="merchantBox"
+               ref="merchantBox">
+        <h2>
+          {{getChooseMerch.ccmMenuName}}
+        </h2>
+        <p>
+          {{getChooseMerch.note}}
+        </p>
       </van-tab>
 
     </van-tabs>
@@ -66,11 +74,32 @@ export default {
   created () {
     let merch = this.$store.getters['merchant/getChooseMerch']
     this.$store.dispatch('foods/saveGoodsList', merch)
+  },
+  mounted () {
+    this.$nextTick(() => {
+      let clientH = document.body.clientHeight
+      let offsetH = this.$refs.tabs.$el.children[0].clientHeight
+      this.$refs.merchantBox.$el.style.height = `${clientH - offsetH}px`
+    })
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+@import '~common/styles/public'
+.merchantBox
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  background white
+.merchantBox h2
+  font-size $font-size-large-x
+  color $color-text-q
+  margin-bottom 20px
+.merchantBox p
+  color $color-dialog-background
+  margin-bottom 20px
 .order
   height 100%
   background white

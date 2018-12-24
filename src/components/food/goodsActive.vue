@@ -71,6 +71,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~common/styles/public'
 .container
   z-index 9999
   position fixed
@@ -97,16 +98,16 @@ export default {
 .carIcon
   top 9px
   left 9px
-.goodsNum
-  position absolute
-  right -1.2vw
-  top -1.333333vw
-  line-height 1
-  background-image linear-gradient(-90deg, #ff7416, #ff3c15 98%)
-  color #fff
-  border-radius 3.2vw
-  padding 0.533333vw 1.333333vw
-  font-size 0.266667rem
+// .goodsNum
+// position absolute
+// right -1.2vw
+// top -1.333333vw
+// line-height 1
+// background-image linear-gradient(-90deg, #ff7416, #ff3c15 98%)
+// color #fff
+// border-radius 3.2vw
+// padding 0.533333vw 1.333333vw
+// font-size 0.266667rem
 .content
   flex 1
 .price
@@ -115,7 +116,7 @@ export default {
   color #fff
 .note
   color #999
-  font-size 0.266667rem
+  font-size $font-size-small-s
 .goPay
   height 100%
   width 28vw

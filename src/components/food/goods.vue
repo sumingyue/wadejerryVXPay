@@ -67,6 +67,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~common/styles/public'
 imgWidth = 25.333333vw
 .counterGoods
   margin-right 10px
@@ -91,7 +92,7 @@ imgWidth = 25.333333vw
   -webkit-flex 1
   flex 1
   color #999
-  font-size 0.266667rem
+  font-size $font-size-small-s
   white-space nowrap
   overflow hidden
   text-overflow ellipsis
@@ -135,13 +136,13 @@ imgWidth = 25.333333vw
 .foodNameText
   font-weight 700
   overflow hidden
-  font-size 0.4rem
+  font-size $font-size-medium
   white-space nowrap
   width 40vw
   text-overflow ellipsis
 .doosDesc
   margin 1.333333vw 0
-  font-size 0.266667rem
+  font-size $font-size-small-s
   color #999
   overflow hidden
   text-overflow ellipsis
