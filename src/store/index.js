@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 
 import foods from 'store/modules/foods'
 import address from 'store/modules/address'
+import merchant from 'store/modules/merchant'
 
 // Vue.use(axios)
 Vue.use(Vuex)
@@ -11,7 +12,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   modules: {
     foods,
-    address
+    address,
+    merchant
   }
 })
 

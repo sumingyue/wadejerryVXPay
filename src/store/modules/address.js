@@ -34,7 +34,7 @@ export default {
   },
   actions: {
     saveAddress(ctx) {
-      api.foods.address().then(res => {
+      api.address.address().then(res => {
         ctx.commit('setAddress', res.data.data)
       })
     }

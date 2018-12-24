@@ -1,6 +1,11 @@
 export default {
   food: {
     foodsList: '/mobile/ccm/diancan/result',
-    address: '/mobile/ccm/address'
+    merchant: '/mobile/ccm/merchant'
+  },
+  address: {
+    address: '/mobile/ccm/address',
+    saveAddress: '',
+    delAddress: ''
   }
 }

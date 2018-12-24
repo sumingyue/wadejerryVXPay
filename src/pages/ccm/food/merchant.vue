@@ -1,81 +1,64 @@
 <template>
-  <!-- 点餐页面 -->
-  <div>
-    <van-tabs swipeable
-              color='rgb(35, 149, 255)'
-              sticky>
-      <van-tab title="点餐">
-        <div class="order">
-          <div class="left">
-            <menu-show :menuList="menuList"></menu-show>
-
-          </div>
-          <div class="right">
-
-            <goods-show :goods-list="goodsList"
-                        :menu-list="menuList"></goods-show>
-          </div>
-          <div class="bottom">
-            <goods-active></goods-active>
-          </div>
-        </div>
-      </van-tab>
-      <van-tab title="商家">
-        商家
-      </van-tab>
-
-    </van-tabs>
-  </div>
+  <van-list v-model="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="onLoad">
+    <van-cell v-for="item in list"
+              :key="item.merchantId"
+              @click="chooseMerch(item)">
+      <template>
+        <p>{{item.ccmMenuName}}</p>
+        <p>{{item.ccmMenuName}}</p>
+        <p>{{item.ccmMenuName}}</p>
+        <p>{{item.ccmMenuName}}</p>
+      </template>
+    </van-cell>
+  </van-list>
 </template>
 
 <script>
-import goodsShow from 'components/food/goods'
-import menuShow from 'components/food/menuList'
-import goodsActive from 'components/food/goodsActive'
 export default {
-  components: {
-    goodsShow,
-    menuShow,
-    goodsActive
-  },
   data () {
     return {
-      menuList: [],
-      goodsList: []
+      list: [],
+      loading: false,
+      finished: false,
+      length: 8
     }
   },
   computed: {
-    getGoodsData () {
-      return this.$store.getters['foods/getGoodsData']
-    },
-    getMenuList () {
-      return this.$store.getters['foods/getMenuList']
+    getMerch () {
+      return this.$store.getters['merchant/getMerchant']
     }
   },
   watch: {
-    getGoodsData (val) {
-      this.goodsList = val
+    getMerch (val) {
+      this.list = val.slice(0, this.length)
+    }
+  },
+  methods: {
+    onLoad () {
+      let thisLength = this.list.length
+      console.log(thisLength)
+      console.log(this.getMerch)
+      this.list = [...this.list, ...(this.getMerch.slice(thisLength, thisLength + this.length))]
+
+      this.loading = false
+
+      //   if (this.list.length === this.getMerch.length) {
+      //     this.finished = true
+      //   }
     },
-    getMenuList (val) {
-      this.menuList = val
+    chooseMerch (par) {
+      this.$store.commit('merchant/setChooseMerch', par)
+      this.$router.push({ path: 'foodsList' })
     }
   },
   created () {
-    this.$store.dispatch('foods/saveGoodsList')
+    this.$store.dispatch('merchant/saveMerchantList')
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.order
-  height 100%
-  background white
-  display flex
-.left
-  // float left
-  width 25%
-.right
-  // float right
-  width 75%
-  margin-left 25%
 </style>

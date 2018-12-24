@@ -1,18 +1,18 @@
 <template>
   <div>
     <van-cell-group>
-      <van-field v-model="addressInfo.name"
+      <van-field v-model="getEdiData.name"
                  required
                  clearable
                  label="姓名"
                  placeholder="请输入姓名" />
 
-      <van-field v-model="addressInfo.tel"
+      <van-field v-model="getEdiData.tel"
                  label="电话"
                  clearable
                  placeholder="请输入电话"
                  required />
-      <van-field v-model="addressInfo.address"
+      <van-field v-model="getEdiData.address"
                  label="地址"
                  clearable
                  placeholder="请输入地址"
@@ -21,39 +21,38 @@
     </van-cell-group>
     <div class="btnBox">
       <van-button size="large"
-                  type="primary">添加</van-button>
+                  type="primary"
+                  @click="onSave">保存</van-button>
     </div>
     <div class="btnBox">
       <van-button size="large"
-                  type="danger">删除</van-button>
+                  type="danger"
+                  @click='onDelete'>删除</van-button>
     </div>
   </div>
 </template>
 
 <script>
+import api from 'api'
+
 export default {
-  data () {
-    return {
-      addressInfo: {}
-    }
-  },
   computed: {
     getEdiData () {
       return this.$store.getters['address/getAddressEdi']
     }
   },
-  watch: {
-    getEdiData (val) {
-      console.log(val)
-      this.addressInfo = val
-    }
-  },
   methods: {
-    onSave (res) {
-      console.log(res)
+    onSave () {
+      console.log('save')
+      api.address.saveAddress().then(res => {
+        this.$store.dispatch('address/saveAddress')
+      })
     },
-    onDelete (res) {
-      console.log(res)
+    onDelete () {
+      console.log('del')
+      api.address.delAddress().then(res => {
+        this.$store.dispatch('address/saveAddress')
+      })
     }
   }
 }
