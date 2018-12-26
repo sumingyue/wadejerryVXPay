@@ -5,10 +5,10 @@ export default {
   address() {
     return axios.post(`${base.address.address}`)
   },
-  saveAddress() {
-    return axios.post(`${base.address.saveAddress}`)
+  saveAddress(par) {
+    return axios.post(`${base.address.saveAddress}`, par)
   },
-  delAddress() {
-    return axios.post(`${base.address.delAddress}`)
+  delAddress(par) {
+    return axios.post(`${base.address.delAddress}`, par)
   }
 }

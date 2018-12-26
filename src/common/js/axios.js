@@ -63,8 +63,9 @@ Axios.interceptors.response.use(
     return res
   },
   error => {
+    console.log(error)
     Notify({
-      message: error,
+      message: error.response.data,
       duration: 1000,
       background: '#1989fa'
     })

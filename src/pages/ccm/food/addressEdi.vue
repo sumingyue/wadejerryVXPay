@@ -39,18 +39,27 @@ export default {
   computed: {
     getEdiData () {
       return this.$store.getters['address/getAddressEdi']
+    },
+    getAddress () {
+      return this.$store.getters['address/getAddress']
+    }
+  },
+  watch: {
+    getEdiData (val) {
+      console.log(val)
     }
   },
   methods: {
     onSave () {
-      console.log('save')
-      api.address.saveAddress().then(res => {
+      api.address.saveAddress(this.getAddress).then(res => {
         this.$store.dispatch('address/saveAddress')
       })
     },
     onDelete () {
-      console.log('del')
-      api.address.delAddress().then(res => {
+      let par = {
+        Id: this.getEdiData.id
+      }
+      api.address.delAddress(par).then(res => {
         this.$store.dispatch('address/saveAddress')
       })
     }
@@ -60,7 +69,7 @@ export default {
 
 <style lang="stylus" scoped>
 .btnBox
-  padding 25px
+  padding 50px
 .btnBox:nth-child(2)
   padding-bottom 0
 </style>

@@ -18,7 +18,7 @@ export default {
   props: ['menuList'],
   data () {
     return {
-      activeMer: -1
+      activeMer: 0
     }
   },
   methods: {
@@ -30,7 +30,38 @@ export default {
         scroll(box.offsetTop, ele.offsetTop)
         // window.scrollTo(0, ele.offsetTop)
       })
+    },
+    handleScroll () {
+      this.$nextTick(() => {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+
+        let menu = document.querySelectorAll('.menu')
+        let indexT = {
+          diff: 9999,
+          index: 0
+        }
+        for (let i = 0; i < menu.length; i++) {
+          const item = menu[i]
+          let top = item.offsetTop
+          let diff = scrollTop - top
+          console.log(diff)
+          if (diff > 0 && diff <= indexT.diff) {
+            indexT = {
+              diff: diff,
+              index: i
+            }
+          }
+        }
+
+        this.activeMer = indexT.index
+      })
     }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>

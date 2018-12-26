@@ -32,8 +32,12 @@ export default {
         let par = {}
         par.wareCode = item.id
         par.total = item.num
-        par.menuId = item.id
+        par.menuId = item.merchantId
+
+        data.push(par)
       }
+      console.log(data)
+      return data
     }
   },
   mutations: {

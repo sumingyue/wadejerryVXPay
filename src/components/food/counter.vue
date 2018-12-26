@@ -79,6 +79,8 @@ export default {
         }
       })
 
+      console.log(this.foodInfo)
+
       if (index === goodsList.length) {
         goodsList.push({
           id: this.foodInfo.wareCode,
@@ -86,7 +88,8 @@ export default {
           name: this.foodInfo.wareName,
           price: this.foodInfo.price,
           desc: this.foodInfo.wareGroup,
-          photo: this.foodInfo.photo
+          photo: this.foodInfo.photo,
+          merchantId: this.foodInfo.ccmMenuId
         })
       }
 
