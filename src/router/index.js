@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 import Index from '@/pages/index'
-import foods from 'router/routers/foods'
+
+import ccm from 'router/routers/ccm'
 
 Vue.use(Router)
 
@@ -16,6 +17,6 @@ export default new Router({
       name: 'index',
       component: Index
     }],
-    ...foods
+    ...ccm
   ]
 })

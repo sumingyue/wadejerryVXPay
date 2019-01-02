@@ -5,6 +5,12 @@ import Address from 'pages/ccm/food/address'
 import AddressEdi from 'pages/ccm/food/addressEdi'
 import Merch from 'pages/ccm/food/merchant'
 
+import Rec from 'pages/ccm/recharge/recharge'
+
+import Recode from 'pages/ccm/recode/recode'
+
+import RepLoss from 'pages/ccm/reportLoss/reportLoss'
+
 export default [{
   path: '/ccm',
   name: 'ccm',
@@ -29,4 +35,16 @@ export default [{
   path: '/ccm/food/merchant',
   name: 'merchant',
   component: Merch
+}, {
+  path: '/ccm/recharge',
+  name: 'rec',
+  component: Rec
+}, {
+  path: '/ccm/recode',
+  name: 'recode',
+  component: Recode
+}, {
+  path: '/ccm/reportLoss',
+  name: 'repLoss',
+  component: RepLoss
 }]

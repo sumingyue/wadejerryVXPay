@@ -24,7 +24,7 @@ export default {
         imgSrc: require('assets/image/mobile/ccm_1.jpg')
       }, {
         title: '餐卡挂失',
-        path: 'ccm/guashi',
+        path: 'ccm/reportLoss',
         imgSrc: require('assets/image/mobile/ccm_2.jpg')
       }, {
         title: '餐厅订餐',
@@ -32,7 +32,7 @@ export default {
         imgSrc: require('assets/image/mobile/ccm_3.jpg')
       }, {
         title: '消费记录',
-        path: 'ccm/record',
+        path: 'ccm/recode',
         imgSrc: require('assets/image/mobile/ccm_4.jpg')
       }]
     }
