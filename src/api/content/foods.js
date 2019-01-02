@@ -7,5 +7,8 @@ export default {
   },
   merchant() {
     return axios.post(`${base.food.merchant}`)
+  },
+  pay(par) {
+    return axios.post(`${base.food.pay}`, par)
   }
 }
