@@ -1,20 +1,15 @@
 <template>
-  <!-- <van-list v-model="loading"
-            :finished="finished"
-            finished-text="没有更多了"
-            @load="onLoad"> -->
   <van-cell-group>
     <van-cell v-for="item in list"
               :key="item.merchantId"
               @click="chooseMerch(item)"
               is-link>
       <template>
-        <h2 class="title">{{item.ccmMenuName}}</h2>
+        <h2 class="title">{{item.merchantName}}</h2>
         <p class="note">{{item.note}}</p>
       </template>
     </van-cell>
   </van-cell-group>
-  <!-- </van-list> -->
 </template>
 
 <script>
@@ -34,28 +29,26 @@ export default {
   },
   watch: {
     getMerch (val) {
-      this.list = val.slice(0, this.length)
+      if (val.length > 1) {
+        this.list = val.slice(0, this.length)
+      } else if (val.length === 1) {
+        this.chooseMerch(val[0])
+      } else {
+        this.$dialog.alert({
+          message: '当前时段没有商户'
+        }).then(() => {
+          this.$router.push({ path: '/ccm' })
+        })
+      }
     }
   },
   methods: {
-    onLoad () {
-      let thisLength = this.list.length
-      console.log(thisLength)
-      console.log(this.getMerch)
-      this.list = [...this.list, ...(this.getMerch.slice(thisLength, thisLength + this.length))]
-
-      this.loading = false
-
-      //   if (this.list.length === this.getMerch.length) {
-      //     this.finished = true
-      //   }
-    },
     chooseMerch (par) {
       this.$store.commit('merchant/setChooseMerch', par)
       this.$router.push({ path: 'foodsList' })
     }
   },
-  created () {
+  activated () {
     this.$store.dispatch('merchant/saveMerchantList')
   }
 }

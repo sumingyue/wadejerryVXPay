@@ -8,14 +8,10 @@ import api from './api'
 
 import '@/common/styles/index.styl'
 
-// import axiosPlugin from 'common/js/axios'
-
 import Vant from 'vant'
 import 'vant/lib/index.css'
 
 Vue.use(Vant)
-
-// Vue.use(axiosPlugin)
 
 Vue.prototype.$api = api
 Vue.config.productionTip = false

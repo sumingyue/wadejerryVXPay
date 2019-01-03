@@ -23,12 +23,12 @@ export default {
   },
   methods: {
     addAvtive (index, id) {
+      let nowEle = document.querySelectorAll(`.menu`)[this.activeMer]
       this.activeMer = index
       let ele = document.querySelector(`#foodDl${id}`)
-      let box = document.querySelector(`.foodContainer`)
+      // let box = document.querySelector(`.foodContainer`)
       this.$nextTick(() => {
-        scroll(box.offsetTop, ele.offsetTop)
-        // window.scrollTo(0, ele.offsetTop)
+        scroll(nowEle.offsetTop, ele.offsetTop)
       })
     },
     handleScroll () {
@@ -43,8 +43,8 @@ export default {
         for (let i = 0; i < menu.length; i++) {
           const item = menu[i]
           let top = item.offsetTop
-          let diff = scrollTop - top
-          console.log(diff)
+          let diff = scrollTop - top + 40
+
           if (diff > 0 && diff <= indexT.diff) {
             indexT = {
               diff: diff,

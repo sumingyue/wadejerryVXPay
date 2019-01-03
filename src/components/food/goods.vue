@@ -79,8 +79,6 @@ imgWidth = 25.333333vw
   align-items center
 .foodContainer
   overflow-y auto
-  -webkit-overflow-scrolling touch
-  // height 100vh
   height 100%
   padding-bottom 10.666667vw
   position relative

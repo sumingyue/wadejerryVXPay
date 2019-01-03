@@ -40,9 +40,12 @@
                    class="checkInput" />
       </van-col>
     </van-row>
-    <van-button square
-                @click="doRec"
-                type="primary">充值</van-button>
+    <div class="btnBox">
+      <van-button square
+                  size="large"
+                  @click="doRec"
+                  type="primary">充值</van-button>
+    </div>
   </div>
 </template>
 
@@ -66,6 +69,10 @@ export default {
         recNum = this.checkBtn
       }
 
+      this.$api.recharge.recharge({
+        totalFee: recNum
+      }).then()
+
       console.log(recNum)
     }
   }
@@ -73,6 +80,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.btnBox
+  padding 35px
 .recBox
   background white
   height 100vh

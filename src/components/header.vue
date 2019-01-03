@@ -50,10 +50,12 @@ export default {
 <style lang="stylus" scoped>
 #user
   background-color #00a0e9
-  background-image url('../assets/image/bg_02.jpg')
+  background-image url('../assets/image/bg1.jpg')
+  background-size cover
   background-repeat no-repeat
   background-position top center
   height 205px
+  box-shadow inset 0 0 1000px rgba(0, 0, 0, 0.5)
 #face
   width 75px
   height 75px

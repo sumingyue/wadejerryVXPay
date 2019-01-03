@@ -25,7 +25,7 @@
                class="merchantBox"
                ref="merchantBox">
         <h2>
-          {{getChooseMerch.ccmMenuName}}
+          {{getChooseMerch.merchantName}}
         </h2>
         <p>
           {{getChooseMerch.note}}
@@ -71,7 +71,7 @@ export default {
       this.menuList = val
     }
   },
-  created () {
+  activated () {
     let merch = this.$store.getters['merchant/getChooseMerch']
     this.$store.dispatch('foods/saveGoodsList', merch)
   },
