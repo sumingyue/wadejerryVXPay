@@ -33,8 +33,6 @@
 </template>
 
 <script>
-import api from 'api'
-
 export default {
   computed: {
     getEdiData () {
@@ -51,7 +49,7 @@ export default {
   },
   methods: {
     onSave () {
-      api.address.saveAddress(this.getAddress).then(res => {
+      this.$api.ccm.address.saveAddress(this.getAddress).then(res => {
         this.$store.dispatch('address/saveAddress')
       })
     },
@@ -59,7 +57,7 @@ export default {
       let par = {
         Id: this.getEdiData.id
       }
-      api.address.delAddress(par).then(res => {
+      this.$api.ccm.address.delAddress(par).then(res => {
         this.$store.dispatch('address/saveAddress')
       })
     }

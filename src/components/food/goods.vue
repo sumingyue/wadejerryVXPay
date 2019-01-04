@@ -15,7 +15,7 @@
           :key="ite.wareCode">
         <div class="foodBox">
           <span class="foodLogo">
-            <img :src="ite.photo"
+            <img :src="ite.bytes"
                  :alt="ite.wareName">
           </span>
           <section class="foodInfo">

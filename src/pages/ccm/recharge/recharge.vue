@@ -69,7 +69,7 @@ export default {
         recNum = this.checkBtn
       }
 
-      this.$api.recharge.recharge({
+      this.$api.ccm.recharge.recharge({
         totalFee: recNum
       }).then()
 

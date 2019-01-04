@@ -2,11 +2,11 @@
   <div>
     <delivery-address></delivery-address>
     <van-card :num="item.num"
+              v-for="item of getGoodsList"
               :price="item.price"
               :desc="item.desc"
               :title="item.name"
               :thumb="item.photo"
-              v-for="item of getGoodsList"
               :key="item.id">
       <div slot="footer">
         <counter :foodInfo="item"></counter>
@@ -22,7 +22,6 @@
 <script>
 import counter from 'components/food/counter'
 import deliveryAddress from 'components/food/address/address'
-import api from 'api'
 export default {
   components: { counter, deliveryAddress },
   computed: {
@@ -30,7 +29,13 @@ export default {
       return this.getAllPrice === 0
     },
     getGoodsList () {
-      return this.$store.getters['foods/getGoodsList']
+      let arr = this.$store.getters['foods/getGoodsList']
+      let filterArr = arr.filter(x => {
+        return x.num > 0
+      })
+      console.log(arr)
+      console.log(filterArr)
+      return filterArr
     },
     getAllPrice () {
       return (this.$store.getters['foods/getAllPrice']) * 100
@@ -49,7 +54,7 @@ export default {
       data.wareCodes = this.$store.getters['foods/getParData']
 
       console.log(data)
-      api.foods.pay().then(result => {
+      this.$api.ccm.foods.pay().then(result => {
         function onBridgeReady () {
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest', result,

@@ -9,7 +9,6 @@
     </div>
     <van-cell-group>
       <van-cell v-for="item of goodsList"
-                v-if="item.num"
                 :key="item.id"
                 :title="item.name"
                 size="large"
@@ -29,7 +28,10 @@ export default {
   components: { counter },
   computed: {
     goodsList () {
-      return this.$store.getters['foods/getGoodsList']
+      let arr = this.$store.getters['foods/getGoodsList']
+      return arr.filter(x => {
+        return x.num > 0
+      })
     }
   },
   methods: {
