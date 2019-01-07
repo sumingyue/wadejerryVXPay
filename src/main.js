@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import api from './api'
+import axios from 'common/js/axios'
 
 import '@/common/styles/index.styl'
 
@@ -14,6 +15,7 @@ import 'vant/lib/index.css'
 Vue.use(Vant)
 
 Vue.prototype.$api = api
+Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -14,6 +14,7 @@ export default {
     },
     // 充值
     recharge: '/getCcmWeixinOrder',
+    rechargeCCB: 'http://www.ejf365.com/YDHLPAY/payment/pay',
     // 卡挂失
     cardLoss: '/mobile/ccm/guashi',
     // 查询消费记录

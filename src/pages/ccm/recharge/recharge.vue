@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import md5 from 'js-md5'
+// import axios from 'axios'
 export default {
   data () {
     return {
@@ -66,14 +68,45 @@ export default {
       if (this.checkBtn === '') {
         recNum = this.checkInput
       } else {
-        recNum = this.checkBtn
+        recNum = `${this.checkBtn}.00`
       }
 
-      this.$api.ccm.recharge.recharge({
-        totalFee: recNum
-      }).then()
+      this.recCCB(recNum)
+    },
+    recCCB (recNum) {
+      let base = {
+        appcode: 'whzxyy',
+        shcode: '20181105162711517000099313',
+        counterid: '20181105162711596000099316',
+        paymachine: 'm',
+        payamount: String(recNum),
+        backURL: '',
+        notifyURL: '',
+        md5_key: '78ZqLtHiGsTfvp8vzPKAzTN4c',
+        shflowid: String(new Date().getTime()) + String(Math.floor(Math.random() * Math.pow(10, 13)))
+      }
+      let md5Val = md5(base.appcode + base.shcode + base.payamount + base.shflowid + base.paymachine + base.backURL + base.notifyURL + base.counterid + base.md5_key)
 
-      console.log(recNum)
+      this.$api.ccm.recharge.rechargeCCB({
+        // axios.post('/ccb/YDHLPAY/payment/pay', {
+        payamount: base.payamount,
+        appcode: base.appcode,
+        shcode: base.shcode,
+        counterid: base.counterid,
+        paymachine: base.paymachine,
+        showpayway: '1',
+        timeout: '60',
+        shflowid: base.shflowid,
+        backURL: base.backURL,
+        notifyURL: base.notifyURL,
+        channel: 'third',
+        mac: md5Val
+      }).then(res => {
+        console.log(res)
+        console.log(res.responsep)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }

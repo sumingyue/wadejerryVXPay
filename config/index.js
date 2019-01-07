@@ -10,7 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/ccb': {
+        target: 'http://www.ejf365.com/', //设置你调用的接口域名和端口号 别忘了加http
+        changeOrigin: true, //如果需要跨域
+        pathRewrite: {
+          '^/ccb': '/'
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
