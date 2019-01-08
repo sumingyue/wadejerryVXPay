@@ -53,31 +53,13 @@ export default {
       data.number = this.$store.getters['foods/getNum']
       data.wareCodes = this.$store.getters['foods/getParData']
 
-      console.log(data)
-      this.$api.ccm.foods.pay().then(result => {
-        function onBridgeReady () {
-          WeixinJSBridge.invoke(
-            'getBrandWCPayRequest', result,
-            function (res) {
-              alert(JSON.stringify(res))
-              if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                this.$router.push({ path: '/ccm/record' })
-              }
-            }
-          )
-        }
-        if (typeof WeixinJSBridge === 'undefined') {
-          if (document.addEventListener) {
-            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
-          } else if (document.attachEvent) {
-            document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
-            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
-          }
+      this.$api.ccm.foods.pay(data).then(res => {
+        if (res.success) {
+          this.$router.push({ path: '/ccm/recharge/paySuccess' })
         } else {
-          onBridgeReady()
+          this.$toast.fail(res.msg)
         }
       })
-      this.$toast.success('submit')
     }
   },
   created () {

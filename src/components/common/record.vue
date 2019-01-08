@@ -20,9 +20,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+$infoMargin = 8px 0
 .recordBox
   margin-bottom 10px
-  box-shadow 3px 3px 15px 0px #2395ff
+  box-shadow 4px 6px 13px 0px #2395ff
   background white
   display flex
   justify-content space-between
@@ -30,11 +31,11 @@ export default {
   height 20vh
 .title
   font-size 18px
-  margin 5px
+  padding $infoMargin
 .infoVal
   font-size 14px
   color #666
-  margin 5px
+  padding $infoMargin
 .infoContent
   margin 0 30px
 .record-box

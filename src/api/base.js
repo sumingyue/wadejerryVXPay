@@ -13,8 +13,12 @@ export default {
       delAddress: '/mobile/ccm/order/details/delete'
     },
     // 充值
-    recharge: '/getCcmWeixinOrder',
-    rechargeCCB: 'http://www.ejf365.com/YDHLPAY/payment/pay',
+    recharge: {
+      recharge: '/getCcmWeixinOrder',
+      rechargeCCB: 'http://www.ejf365.com/YDHLPAY/payment/pay',
+      rechargeNotify: '/getCcmWeixinOrder',
+      rechargeBack: '/ccm/recharge'
+    },
     // 卡挂失
     cardLoss: '/mobile/ccm/guashi',
     // 查询消费记录

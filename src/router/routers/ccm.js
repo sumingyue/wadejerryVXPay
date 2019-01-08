@@ -6,6 +6,7 @@ import AddressEdi from 'pages/ccm/food/addressEdi'
 import Merch from 'pages/ccm/food/merchant'
 
 import Rec from 'pages/ccm/recharge/recharge'
+import PaySuccess from 'pages/ccm/recharge/paySuccess'
 
 import Recode from 'pages/ccm/recode/recode'
 
@@ -47,4 +48,8 @@ export default [{
   path: '/ccm/reportLoss',
   name: 'repLoss',
   component: RepLoss
+}, {
+  path: '/ccm/recharge/paySuccess',
+  name: 'paySuccess',
+  component: PaySuccess
 }]

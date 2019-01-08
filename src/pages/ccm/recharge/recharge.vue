@@ -41,22 +41,95 @@
       </van-col>
     </van-row>
     <div class="btnBox">
-      <van-button square
-                  size="large"
-                  @click="doRec"
-                  type="primary">充值</van-button>
+      <div class="ccbPay">
+        <form action="http://www.ejf365.com/YDHLPAY/payment/pay">
+          <input type="hidden"
+                 name="payamount"
+                 :value="calcRec">
+          <input type="hidden"
+                 name="appcode"
+                 :value="base.appcode">
+          <input type="hidden"
+                 name="shcode"
+                 :value="base.shcode">
+          <input type="hidden"
+                 name="counterid"
+                 :value="base.counterid">
+          <input type="hidden"
+                 name="paymachine"
+                 :value="base.paymachine">
+          <input type="hidden"
+                 name="showpayway"
+                 value="1">
+          <input type="hidden"
+                 name="shflowid"
+                 :value="setShflowid">
+          <input type="hidden"
+                 name="backURL"
+                 :value="base.backURL">
+          <input type="hidden"
+                 name="notifyURL"
+                 :value="base.notifyURL">
+          <input type="hidden"
+                 name="channel"
+                 value="third">
+          <input type="hidden"
+                 name="mac"
+                 :value="setMd5">
+          <van-button square
+                      size="large"
+                      type="primary submit">充值</van-button>
+
+        </form>
+      </div>
+      <div class="wxPay">
+        <van-button square
+                    size="large"
+                    @click="doRec"
+                    type="primary">wx充值</van-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import md5 from 'js-md5'
+import api from 'api/base'
+import ip from 'common/js/ip'
 // import axios from 'axios'
 export default {
   data () {
     return {
       checkBtn: 5,
-      checkInput: ''
+      checkInput: '',
+      base: {
+        appcode: 'whzxyy',
+        shcode: '20181105162711517000099313',
+        counterid: '20181105162711596000099316',
+        paymachine: 'm',
+        backURL: `${ip}${api.ccm.recharge.rechargeNotify}`,
+        notifyURL: `${ip}${api.ccm.recharge.rechargeBack}`,
+        md5_key: '78ZqLtHiGsTfvp8vzPKAzTN4c'
+      }
+    }
+  },
+  computed: {
+    calcRec () {
+      let recNum
+      if (this.checkBtn === '') {
+        recNum = this.checkInput
+      } else {
+        recNum = `${this.checkBtn}.00`
+      }
+      return recNum
+    },
+    setShflowid () {
+      return String(new Date().getTime()) + String(Math.floor(Math.random() * Math.pow(10, 13)))
+    },
+    setMd5 () {
+      let md5Val = md5(this.base.appcode + this.base.shcode + this.calcRec + this.setShflowid + this.base.paymachine + this.base.backURL + this.base.notifyURL + this.base.counterid + this.base.md5_key)
+      console.log(md5Val)
+      return md5Val
     }
   },
   methods: {
@@ -64,48 +137,29 @@ export default {
       this.checkBtn = e.target.innerText
     },
     doRec () {
-      let recNum
-      if (this.checkBtn === '') {
-        recNum = this.checkInput
-      } else {
-        recNum = `${this.checkBtn}.00`
-      }
+      this.$api.ccm.recharge.recharge().then(result => {
+        function onBridgeReady () {
+          WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', result,
+            function (res) {
+              alert(JSON.stringify(res))
+              if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                this.$router.push({ path: '/ccm/recharge/paySuccess' })
+              }
+            }
+          )
+        }
 
-      this.recCCB(recNum)
-    },
-    recCCB (recNum) {
-      let base = {
-        appcode: 'whzxyy',
-        shcode: '20181105162711517000099313',
-        counterid: '20181105162711596000099316',
-        paymachine: 'm',
-        payamount: String(recNum),
-        backURL: '',
-        notifyURL: '',
-        md5_key: '78ZqLtHiGsTfvp8vzPKAzTN4c',
-        shflowid: String(new Date().getTime()) + String(Math.floor(Math.random() * Math.pow(10, 13)))
-      }
-      let md5Val = md5(base.appcode + base.shcode + base.payamount + base.shflowid + base.paymachine + base.backURL + base.notifyURL + base.counterid + base.md5_key)
-
-      this.$api.ccm.recharge.rechargeCCB({
-        // axios.post('/ccb/YDHLPAY/payment/pay', {
-        payamount: base.payamount,
-        appcode: base.appcode,
-        shcode: base.shcode,
-        counterid: base.counterid,
-        paymachine: base.paymachine,
-        showpayway: '1',
-        timeout: '60',
-        shflowid: base.shflowid,
-        backURL: base.backURL,
-        notifyURL: base.notifyURL,
-        channel: 'third',
-        mac: md5Val
-      }).then(res => {
-        console.log(res)
-        console.log(res.responsep)
-      }).catch(err => {
-        console.log(err)
+        if (typeof WeixinJSBridge === 'undefined') {
+          if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+          } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+          }
+        } else {
+          onBridgeReady()
+        }
       })
     }
   }
