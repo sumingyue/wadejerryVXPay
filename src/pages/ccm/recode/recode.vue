@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import recodeBlock from 'components/common/record'
+import recodeBlock from 'components/ccm/record/record'
 export default {
   components: { recodeBlock },
   data () {
@@ -17,7 +17,6 @@ export default {
   },
   activated () {
     this.$api.ccm.recode.recode().then(res => {
-      console.log(res.data)
       this.info = res.data
     })
   }

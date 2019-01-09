@@ -95,7 +95,7 @@
 <script>
 import md5 from 'js-md5'
 import api from 'api/base'
-import ip from 'common/js/ip'
+import BASE from 'common/js/base'
 // import axios from 'axios'
 export default {
   data () {
@@ -107,8 +107,8 @@ export default {
         shcode: '20181105162711517000099313',
         counterid: '20181105162711596000099316',
         paymachine: 'm',
-        backURL: `${ip}${api.ccm.recharge.rechargeNotify}`,
-        notifyURL: `${ip}${api.ccm.recharge.rechargeBack}`,
+        backURL: `${BASE.ip}${api.ccm.recharge.rechargeNotify}`,
+        notifyURL: `${BASE.ip}${api.ccm.recharge.rechargeBack}`,
         md5_key: '78ZqLtHiGsTfvp8vzPKAzTN4c'
       }
     }
@@ -128,7 +128,6 @@ export default {
     },
     setMd5 () {
       let md5Val = md5(this.base.appcode + this.base.shcode + this.calcRec + this.setShflowid + this.base.paymachine + this.base.backURL + this.base.notifyURL + this.base.counterid + this.base.md5_key)
-      console.log(md5Val)
       return md5Val
     }
   },
@@ -137,10 +136,10 @@ export default {
       this.checkBtn = e.target.innerText
     },
     doRec () {
-      this.$api.ccm.recharge.recharge().then(result => {
+      this.$api.ccm.recharge.recharge({ totalFee: Number(this.calcRec) }).then(result => {
         function onBridgeReady () {
           WeixinJSBridge.invoke(
-            'getBrandWCPayRequest', result,
+            'getBrandWCPayRequest', result.data.data,
             function (res) {
               alert(JSON.stringify(res))
               if (res.err_msg === 'get_brand_wcpay_request:ok') {

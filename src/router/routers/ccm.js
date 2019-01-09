@@ -9,6 +9,7 @@ import Rec from 'pages/ccm/recharge/recharge'
 import PaySuccess from 'pages/ccm/recharge/paySuccess'
 
 import Recode from 'pages/ccm/recode/recode'
+import RecodeDetail from 'pages/ccm/recode/recode_detail'
 
 import RepLoss from 'pages/ccm/reportLoss/reportLoss'
 
@@ -35,7 +36,10 @@ export default [{
 }, {
   path: '/ccm/food/merchant',
   name: 'merchant',
-  component: Merch
+  component: Merch,
+  beforeEnter: (to, from, next) => {
+    from.path === '/ccm/food/foodsList' ? next('/ccm') : next()
+  }
 }, {
   path: '/ccm/recharge',
   name: 'rec',
@@ -52,4 +56,8 @@ export default [{
   path: '/ccm/recharge/paySuccess',
   name: 'paySuccess',
   component: PaySuccess
+}, {
+  path: '/ccm/recode/recode_detail',
+  name: 'recodeDetail',
+  component: RecodeDetail
 }]

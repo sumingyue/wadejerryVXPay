@@ -71,6 +71,8 @@ export default {
       }).then(res => {
         if (res.success) {
           this.$store.dispatch('card/saveCard')
+        } else {
+          this.$toast.fail(res.msg)
         }
       })
     }

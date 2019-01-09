@@ -1,5 +1,6 @@
 <template>
-  <div class="record-box">
+  <div class="record-box"
+       @click="goDetail">
     <div class="recordBox van-hairline--surround">
       <div class="infoContent">
         <h3 class="title">{{info.merchantName}}</h3>
@@ -15,7 +16,12 @@
 
 <script>
 export default {
-  props: ['info']
+  props: ['info'],
+  methods: {
+    goDetail () {
+      this.$router.path('/ccm')
+    }
+  }
 }
 </script>
 
