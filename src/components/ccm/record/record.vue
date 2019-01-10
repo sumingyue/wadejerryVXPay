@@ -19,7 +19,7 @@ export default {
   props: ['info'],
   methods: {
     goDetail () {
-      this.$router.path('/ccm')
+      this.$router.push({ path: '/ccm/recode/recode_detail', query: { id: this.info.orderListId, name: this.info.merchantName } })
     }
   }
 }
