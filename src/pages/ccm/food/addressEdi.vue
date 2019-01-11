@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     onSave () {
-      this.$api.ccm.address.saveAddress(this.getAddress).then(res => {
+      this.$api.ccm.address.saveAddress(this.getEdiData).then(res => {
         this.$store.dispatch('address/saveAddress')
       })
     },
