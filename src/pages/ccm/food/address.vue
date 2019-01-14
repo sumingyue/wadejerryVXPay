@@ -18,7 +18,12 @@ export default {
   },
   computed: {
     getAddress () {
-      return this.$store.getters['address/getAddress']
+      let list = this.$store.getters['address/getAddress']
+      list.map(x => {
+        x.name = x.personName
+        x.tel = x.phone
+      })
+      return list
     }
   },
   watch: {

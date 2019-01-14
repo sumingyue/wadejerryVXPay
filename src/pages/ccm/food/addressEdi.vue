@@ -1,20 +1,23 @@
 <template>
   <div>
     <van-cell-group>
-      <van-field v-model="getEdiData.name"
+      <van-field v-model="getEdiData.personName"
                  required
                  clearable
                  label="姓名"
+                 maxlength=32
                  placeholder="请输入姓名" />
 
-      <van-field v-model="getEdiData.tel"
+      <van-field v-model="getEdiData.phone"
                  label="电话"
                  clearable
+                 maxlength=32
                  placeholder="请输入电话"
                  required />
       <van-field v-model="getEdiData.address"
                  label="地址"
                  clearable
+                 maxlength=32
                  placeholder="请输入地址"
                  autosize
                  required />

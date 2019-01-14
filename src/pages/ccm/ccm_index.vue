@@ -20,7 +20,8 @@ export default {
     return {
       menuList: [{
         title: '消费充值',
-        path: 'ccm/recharge',
+        // path: 'ccm/recharge',
+        path: 'carfeeQuery',
         imgSrc: require('assets/image/mobile/ccm_1.jpg')
       }, {
         title: '餐卡挂失',

@@ -1,24 +1,29 @@
 <template>
-  <div>
+  <div class="report_container">
     <nav-header></nav-header>
-    <van-cell-group>
-      <van-cell title="消费帐号"
-                size="large"
-                :value="card.cardNumber" />
-      <van-cell title="卡状态"
-                size="large"
-                center
-                :value="status" />
-      <van-cell title="开户时间"
-                size="large"
-                :value="card.enableTime" />
-    </van-cell-group>
-
-    <div class="btnBox">
-      <van-button square
+    <div v-for="item of card"
+         :key="item.cardId"
+         class="report_group">
+      <van-cell-group>
+        <van-cell title="消费帐号"
                   size="large"
-                  @click="doReport"
-                  type="primary">挂失</van-button>
+                  :value="item.cardNumber" />
+        <van-cell title="卡状态"
+                  size="large"
+                  center
+                  :value="calcStatus(item.cardStatus)" />
+        <van-cell title="开户时间"
+                  size="large"
+                  :value="item.enableTime" />
+        <van-cell title="操作"
+                  size="large">
+          <van-button size="small"
+                      :disabled="item.cardStatus!=0"
+                      slot="right-icon"
+                      @click="doReport"
+                      type="primary">挂失</van-button>
+        </van-cell>
+      </van-cell-group>
     </div>
   </div>
 </template>
@@ -31,26 +36,25 @@ export default {
   },
   data () {
     return {
-      card: {
-        cardStatus: '',
-        cardNumber: '',
-        enableTime: ''
-      }
+      card: []
 
     }
   },
   watch: {
     getCard (val) {
+      console.log(val)
       this.card = val
     }
   },
   computed: {
     getCard () {
-      return this.$store.getters['card/getCard'][0]
-    },
-    status () {
+      return this.$store.getters['card/getCard']
+    }
+  },
+  methods: {
+    calcStatus (status) {
       let index
-      switch (Number(this.card.cardStatus)) {
+      switch (Number(status)) {
         case 0:
           index = '正常'
           break
@@ -62,17 +66,15 @@ export default {
           break
       }
       return index
-    }
-  },
-  methods: {
+    },
     doReport () {
       this.$api.ccm.cardLoss.cardLoss({
         'cardNumber': this.card.cardNumber
       }).then(res => {
-        if (res.success) {
+        if (res.iRet) {
           this.$store.dispatch('card/saveCard')
         } else {
-          this.$toast.fail(res.msg)
+          this.$toast.fail(res.strError)
         }
       })
     }
@@ -86,4 +88,8 @@ export default {
 <style lang="stylus" scoped>
 .btnBox
   padding 35px
+.report_group
+  margin-bottom 10px
+.report_container
+  height 100%
 </style>

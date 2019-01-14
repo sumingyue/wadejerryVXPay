@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import api from './api'
 import axios from 'common/js/axios'
+import lodash from 'lodash'
 
 import '@/common/styles/index.styl'
 
@@ -16,6 +17,7 @@ Vue.use(Vant)
 
 Vue.prototype.$api = api
 Vue.prototype.$axios = axios
+Vue.prototype.$_ = lodash
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

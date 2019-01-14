@@ -10,8 +10,8 @@
           <span class="address-text">{{defaultAddress.address}}</span>
           <van-icon name="arrow" />
         </p>
-        <h2 class="address-name"><span>{{defaultAddress.name}}</span>
-          <span class="phone">{{defaultAddress.tel}}</span></h2>
+        <h2 class="address-name"><span>{{defaultAddress.personName}}</span>
+          <span class="phone">{{defaultAddress.phone}}</span></h2>
       </div>
     </section>
   </div>

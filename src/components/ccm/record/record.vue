@@ -4,8 +4,8 @@
     <div class="recordBox van-hairline--surround">
       <div class="infoContent">
         <h3 class="title">{{info.merchantName}}</h3>
-        <p class="infoVal">下单时间: {{info.orderTime}}</p>
-        <p class="infoVal">总价: ￥{{info.totalFee}}</p>
+        <p class="infoVal">金额: ￥{{info.totalFee}}</p>
+        <p class="infoVal">时间: {{info.orderTime}}</p>
       </div>
       <van-icon name="arrow"
                 size="25px"
@@ -29,7 +29,7 @@ export default {
 $infoMargin = 8px 0
 .recordBox
   margin-bottom 10px
-  box-shadow 4px 6px 13px 0px #2395ff
+  box-shadow 4px 6px 13px 0px #ddd
   background white
   display flex
   justify-content space-between

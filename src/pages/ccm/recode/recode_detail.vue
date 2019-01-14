@@ -24,37 +24,22 @@ export default {
   data () {
     return {
       val: [{
-        'wareListDto': [{
-          'wareCode': 'yy',
-          'wareName': '商品一',
-          'unitPrice': '12',
-          'photo': '/static/image/hamburger.png',
-          'total': '1',
-          'wareGroup': '商品一的描述信息',
-          'menuId': 1,
-          'menuName': '好好',
-          'menuCode': 'hh'
-        }, {
-          'wareCode': 'yy1',
-          'wareName': '商品二',
-          'unitPrice': '132',
-          'photo': '/static/image/hamburger.png',
-          'total': '1',
-          'wareGroup': '商品二的描述信息',
-          'menuId': 1,
-          'menuName': '好好',
-          'menuCode': 'hh'
-        }],
-        'totalFee': '12.00',
-        'orderTime': '2018 - 10 - 12',
-        'orderListId': 1
+        'wareListDto': [],
+        'totalFee': '',
+        'orderTime': '',
+        'orderListId': 0
       }]
     }
   },
   activated () {
     let par = this.$route.query
-    this.$api.ccm.recode.recode({ Id: par.id }).then(res => {
-      console.log(res)
+    // this.$api.ccm.recode.recode({ Id: par.id }).then(res => {
+    //   this.val = res.data.arr
+    //   console.log(res.data.arr)
+    // })
+    this.$axios.post('recode_detail', { Id: par.id }).then(res => {
+      this.val = res.data.arr
+      console.log(res.data.arr)
     })
   }
 }

@@ -3,20 +3,20 @@ import api from 'api'
 export default {
   namespaced: true,
   state: {
-    cardObj: {}
+    cardArr: []
   },
   getters: {
-    getCard: state => state.cardObj
+    getCard: state => state.cardArr
   },
   mutations: {
     setCard(state, val) {
-      state.cardObj = val
+      state.cardArr = val
     }
   },
   actions: {
     saveCard(ctx) {
       api.ccm.cardLoss.cardLoss().then(res => {
-        ctx.commit('setCard', res.data)
+        ctx.commit('setCard', res.data.systemAuthDtoResult)
       })
     }
   }

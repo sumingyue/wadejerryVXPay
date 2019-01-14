@@ -1,4 +1,5 @@
 import api from 'api'
+import $_ from 'lodash'
 
 export default {
   namespaced: true,
@@ -14,7 +15,7 @@ export default {
     getAllPrice: state => {
       let price = 0
       state.goodsList.forEach(item => {
-        price += (parseInt(item.num) * parseInt(item.price))
+        price += ($_.floor($_.multiply(item.num, item.price), 2))
       })
       return price
     },
