@@ -4,7 +4,7 @@ export default {
     food: {
       foodsList: '/mobile/ccm/diancan/result',
       merchant: '/mobile/ccm/merchant',
-      pay: '/mobile/ccm/diancan/result'
+      pay: '/mobile/ccm/settlement'
     },
     // 地址
     address: {
@@ -16,12 +16,16 @@ export default {
     recharge: {
       recharge: '/getCcmWeixinOrder',
       rechargeCCB: 'http://www.ejf365.com/YDHLPAY/payment/pay',
-      rechargeNotify: '/getCcmWeixinOrder',
-      rechargeBack: '/ccm/recharge'
+      rechargeNotify: '/mobile/ccm/ccb',
+      rechargeBack: '/ccm/recharge/paySuccess',
+      rechargeBackCCB: '/mobile/ccm/ccbPaymen'
     },
     // 卡挂失
     cardLoss: '/mobile/ccm/guashi',
     // 查询消费记录
-    recode: '/mobile/ccm/record'
+    recode: {
+      recode: '/mobile/ccm/record',
+      recode_detail: '/moblie/ccm/recode_detail'
+    }
   }
 }

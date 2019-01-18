@@ -33,14 +33,14 @@ export default {
   },
   activated () {
     let par = this.$route.query
-    // this.$api.ccm.recode.recode({ Id: par.id }).then(res => {
+    this.$api.ccm.recode.recode({ Id: par.id }).then(res => {
+      this.val = res.data.arr
+      console.log(res.data)
+    })
+    // this.$axios.post('recode_detail', { Id: par.id }).then(res => {
     //   this.val = res.data.arr
     //   console.log(res.data.arr)
     // })
-    this.$axios.post('recode_detail', { Id: par.id }).then(res => {
-      this.val = res.data.arr
-      console.log(res.data.arr)
-    })
   }
 }
 </script>

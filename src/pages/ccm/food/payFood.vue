@@ -62,7 +62,7 @@ export default {
       })
     }
   },
-  created () {
+  activated () {
     this.$store.dispatch('address/saveAddress')
   }
 }

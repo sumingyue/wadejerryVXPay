@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ccm-page">
     <nav-header></nav-header>
     <div class="submenu">
       <menu-list :data="menuList"></menu-list>
@@ -21,7 +21,7 @@ export default {
       menuList: [{
         title: '消费充值',
         // path: 'ccm/recharge',
-        path: 'carfeeQuery',
+        path: 'vxpay/',
         imgSrc: require('assets/image/mobile/ccm_1.jpg')
       }, {
         title: '餐卡挂失',
@@ -40,3 +40,8 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.ccm-page
+  height 100%
+</style>

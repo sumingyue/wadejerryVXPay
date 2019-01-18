@@ -42,10 +42,11 @@
     </van-row>
     <div class="btnBox">
       <div class="ccbPay">
-        <form action="http://www.ejf365.com/YDHLPAY/payment/pay">
+        <form action="http://www.ejf365.com/YDHLPAY/payment/pay"
+              ref="ccb_from">
           <input type="hidden"
                  name="payamount"
-                 :value="calcRec">
+                 :value="base.payamount">
           <input type="hidden"
                  name="appcode"
                  :value="base.appcode">
@@ -57,13 +58,13 @@
                  :value="base.counterid">
           <input type="hidden"
                  name="paymachine"
-                 :value="base.paymachine">
+                 value="m">
           <input type="hidden"
                  name="showpayway"
-                 value="1">
+                 :value="base.showpayway">
           <input type="hidden"
                  name="shflowid"
-                 :value="setShflowid">
+                 :value="base.shflowid">
           <input type="hidden"
                  name="backURL"
                  :value="base.backURL">
@@ -71,14 +72,21 @@
                  name="notifyURL"
                  :value="base.notifyURL">
           <input type="hidden"
+                 name="paySource"
+                 :value="base.paySource">
+          <input type="hidden"
+                 name="remark"
+                 :value="base.remark">
+          <input type="hidden"
                  name="channel"
                  value="third">
           <input type="hidden"
                  name="mac"
-                 :value="setMd5">
+                 :value="base.mac">
           <van-button square
                       size="large"
-                      type="primary submit">充值</van-button>
+                      type="primary"
+                      @click.prevent="doSubmit">充值</van-button>
 
         </form>
       </div>
@@ -107,8 +115,8 @@ export default {
         shcode: '20181105162711517000099313',
         counterid: '20181105162711596000099316',
         paymachine: 'm',
-        backURL: `${BASE.ip}${api.ccm.recharge.rechargeNotify}`,
-        notifyURL: `${BASE.ip}${api.ccm.recharge.rechargeBack}`,
+        backURL: `${BASE.ip}${api.ccm.recharge.rechargeBack}`,
+        notifyURL: `${BASE.ip}${api.ccm.recharge.rechargeNotify}`,
         md5_key: '78ZqLtHiGsTfvp8vzPKAzTN4c'
       }
     }
@@ -132,6 +140,15 @@ export default {
     }
   },
   methods: {
+    doSubmit () {
+      this.$api.ccm.recharge.rechargeBackCCB({ fee: this.calcRec }).then(res => {
+        this.base = res.data.data[0]
+        this.$nextTick(() => {
+          this.$refs.ccb_from.submit()
+        })
+      })
+      return false
+    },
     checkThis (e) {
       this.checkBtn = e.target.innerText
     },

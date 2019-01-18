@@ -41,7 +41,7 @@ export default [{
     from.path === '/ccm/food/foodsList' ? next('/ccm') : next()
   }
 }, {
-  path: '/carfeeQuery',
+  path: '/vxpay/',
   // path: '/ccm/recharge',
   name: 'rec',
   component: Rec

@@ -7,5 +7,8 @@ export default {
   },
   rechargeCCB(par) {
     return axios.post(`${base.ccm.recharge.rechargeCCB}`, par)
+  },
+  rechargeBackCCB(par) {
+    return axios.post(`${base.ccm.recharge.rechargeBackCCB}`, par)
   }
 }

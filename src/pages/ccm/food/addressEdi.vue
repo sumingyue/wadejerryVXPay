@@ -29,6 +29,7 @@
     </div>
     <div class="btnBox">
       <van-button size="large"
+                  v-if="getEdiData.del"
                   type="danger"
                   @click='onDelete'>删除</van-button>
     </div>
@@ -54,6 +55,7 @@ export default {
     onSave () {
       this.$api.ccm.address.saveAddress(this.getEdiData).then(res => {
         this.$store.dispatch('address/saveAddress')
+        this.$router.push({ path: '/ccm/food/address' })
       })
     },
     onDelete () {
@@ -62,6 +64,7 @@ export default {
       }
       this.$api.ccm.address.delAddress(par).then(res => {
         this.$store.dispatch('address/saveAddress')
+        this.$router.push({ path: '/ccm/food/address' })
       })
     }
   }

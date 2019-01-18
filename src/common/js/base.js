@@ -1,4 +1,4 @@
-const ip = '222.185.194.114'
+const ip = 'http://www.wadejerry.net/mobile'
 const imgSrc = 'images/ccm/'
 
 export default {
