@@ -40,8 +40,8 @@ export default {
     getAllPrice () {
       return (this.$store.getters['foods/getAllPrice']) * 100
     },
-    getAddress () {
-      return this.$store.getters['foods/getAddress']
+    getAddressChoose () {
+      return this.$store.getters['address/getAddressChoose']
     }
   },
   methods: {
@@ -53,11 +53,14 @@ export default {
       data.number = this.$store.getters['foods/getNum']
       data.wareCodes = this.$store.getters['foods/getParData']
 
+      data.detailsId = this.getAddressChoose.id
+      data.address = this.getAddressChoose
+
       this.$api.ccm.foods.pay(data).then(res => {
-        if (res.iRet) {
+        if (res.data.iRet) {
           this.$router.push({ path: '/ccm/recharge/paySuccess' })
         } else {
-          this.$toast.fail(res.strError)
+          this.$toast.fail(res.data.strError)
         }
       })
     }

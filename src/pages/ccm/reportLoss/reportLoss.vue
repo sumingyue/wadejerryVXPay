@@ -68,7 +68,7 @@ export default {
       return index
     },
     doReport () {
-      this.$api.ccm.cardLoss.cardLoss({
+      this.$api.ccm.cardLoss.guashiCardNumber({
         'cardNumber': this.card.cardNumber
       }).then(res => {
         if (res.iRet) {

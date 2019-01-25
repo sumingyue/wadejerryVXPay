@@ -1,6 +1,6 @@
 import axios from 'axios'
 //  axios默认安装qs 用于转化json为formdata格式
-import qs from 'qs'
+// import qs from 'qs'
 // import router from "vue-router";
 import global from 'common/js/global'
 // import Toast from 'muse-ui-toast'
@@ -14,7 +14,7 @@ const Axios = axios.create({
   responseType: 'json',
   withCredentials: true, // 是否允许带cookie这些
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+    'Content-Type': 'application/json;charset=utf-8'
   }
 })
 
@@ -24,7 +24,9 @@ Axios.interceptors.request.use(
     // 在发送请求之前做某件事
     if (config.method === 'post') {
       // 序列化
-      config.data = qs.stringify(config.data, { arrayFormat: 'brackets' })
+      console.log(config.data)
+      // config.data = qs.stringify(config.data, { arrayFormat: 'brackets' })
+      console.log(config.data)
       // 温馨提示,若是贵公司的提交能直接接受json 格式,可以不用 qs 来序列化的
     }
 
@@ -42,7 +44,7 @@ Axios.interceptors.request.use(
     Notify({
       message: error,
       duration: 1000,
-      background: '#1989fa'
+      background: '#ff4444'
     })
     return Promise.reject(error)
   }
@@ -54,20 +56,27 @@ Axios.interceptors.response.use(
     // 对响应数据做些事
     if (!res.data) {
       Notify({
-        message: res.msg,
+        message: '发生未知错误',
         duration: 1000,
-        background: '#1989fa'
+        background: '#ff4444'
       })
       return Promise.reject(res)
+    } else if (res.data.iRet === false) {
+      Notify({
+        message: res.data.strError,
+        duration: 1000,
+        background: '#ff4444'
+      })
     }
     return res
   },
   error => {
     console.log(error)
+    console.log(error.response)
     Notify({
-      message: error.response.data,
+      message: `${error.response.status}：${error.response.statusText}`,
       duration: 1000,
-      background: '#1989fa'
+      background: '#ff4444'
     })
     // 用户登录的时候会拿到一个基础信息,比如用户名,token,过期时间戳
     // 直接丢localStorage或者sessionStorage

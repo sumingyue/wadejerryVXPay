@@ -14,6 +14,8 @@
 
     <div class="info_val_box">
       <p class="infoVal">总价: <span class="total">￥{{val[0].totalFee}}</span></p>
+      <p class="infoVal">手机号: <span>{{val[0].phone }}</span></p>
+      <p class="infoVal">送货地址: <span>{{val[0].address}}</span></p>
       <p class="infoVal">下单时间: <span>{{val[0].orderTime}}</span></p>
     </div>
   </div>
@@ -72,6 +74,7 @@ export default {
   display flex
   justify-content space-evenly
   height 5vh
+  padding .5rem
 .record-box
   height 100vh
   background white

@@ -4,5 +4,8 @@ import axios from 'common/js/axios'
 export default {
   cardLoss(par) {
     return axios.post(`${base.ccm.cardLoss}`, par)
+  },
+  guashiCardNumber(par) {
+    return axios.post(`${base.ccm.guashiCardNumber}`, par)
   }
 }

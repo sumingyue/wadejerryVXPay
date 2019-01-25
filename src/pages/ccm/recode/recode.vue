@@ -16,7 +16,7 @@ export default {
     }
   },
   activated () {
-    this.$api.ccm.recode.recode().then(res => {
+    this.$api.ccm.recode.recodes().then(res => {
       this.info = res.data
     })
   }

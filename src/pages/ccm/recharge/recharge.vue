@@ -46,7 +46,7 @@
               ref="ccb_from">
           <input type="hidden"
                  name="payamount"
-                 :value="base.payamount">
+                 :value="calcRec">
           <input type="hidden"
                  name="appcode"
                  :value="base.appcode">
@@ -58,13 +58,13 @@
                  :value="base.counterid">
           <input type="hidden"
                  name="paymachine"
-                 value="m">
+                 :value="base.paymachine">
           <input type="hidden"
                  name="showpayway"
                  :value="base.showpayway">
           <input type="hidden"
                  name="shflowid"
-                 :value="base.shflowid">
+                 :value="setShflowid">
           <input type="hidden"
                  name="backURL"
                  :value="base.backURL">
@@ -72,22 +72,15 @@
                  name="notifyURL"
                  :value="base.notifyURL">
           <input type="hidden"
-                 name="paySource"
-                 :value="base.paySource">
-          <input type="hidden"
-                 name="remark"
-                 :value="base.remark">
-          <input type="hidden"
                  name="channel"
-                 value="third">
+                 :value="base.channel">
           <input type="hidden"
                  name="mac"
-                 :value="base.mac">
+                 :value="setMd5">
           <van-button square
                       size="large"
-                      type="primary"
-                      @click.prevent="doSubmit">充值</van-button>
-
+                      @click.prevent="doSubmit"
+                      type="primary">充值</van-button>
         </form>
       </div>
       <div class="wxPay">
@@ -117,8 +110,11 @@ export default {
         paymachine: 'm',
         backURL: `${BASE.ip}${api.ccm.recharge.rechargeBack}`,
         notifyURL: `${BASE.ip}${api.ccm.recharge.rechargeNotify}`,
-        md5_key: '78ZqLtHiGsTfvp8vzPKAzTN4c'
-      }
+        md5_key: '78ZqLtHiGsTfvp8vzPKAzTN4c',
+        showpayway: '1',
+        channel: 'third'
+      },
+      shflowid: ''
     }
   },
   computed: {
@@ -141,11 +137,12 @@ export default {
   },
   methods: {
     doSubmit () {
-      this.$api.ccm.recharge.rechargeBackCCB({ fee: this.calcRec }).then(res => {
-        this.base = res.data.data[0]
-        this.$nextTick(() => {
+      this.$api.ccm.recharge.rechargeBackCCB({ fee: this.calcRec, shflowid: this.setShflowid }).then(res => {
+        if (res.data.iRet) {
           this.$refs.ccb_from.submit()
-        })
+        } else {
+          this.$toast(res.data.strError)
+        }
       })
       return false
     },
@@ -153,14 +150,14 @@ export default {
       this.checkBtn = e.target.innerText
     },
     doRec () {
+      let that = this
       this.$api.ccm.recharge.recharge({ totalFee: Number(this.calcRec) }).then(result => {
         function onBridgeReady () {
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest', result.data.data,
             function (res) {
-              alert(JSON.stringify(res))
               if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                this.$router.push({ path: '/ccm/recharge/paySuccess' })
+                that.$router.push({ path: '/ccm/recharge/paySuccess' })
               }
             }
           )

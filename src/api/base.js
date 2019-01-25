@@ -22,9 +22,11 @@ export default {
     },
     // 卡挂失
     cardLoss: '/mobile/ccm/guashi',
+    guashiCardNumber: '/mobile/ccm/guashiCardNumber',
     // 查询消费记录
     recode: {
       recode: '/mobile/ccm/record',
+      recodes: '/mobile/ccm/records',
       recode_detail: '/moblie/ccm/recode_detail'
     }
   }
