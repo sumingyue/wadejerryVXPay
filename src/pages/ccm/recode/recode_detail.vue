@@ -36,8 +36,11 @@ export default {
   activated () {
     let par = this.$route.query
     this.$api.ccm.recode.recode({ Id: par.id }).then(res => {
+      if (res.data.arr[0].wareListDto === []) {
+        this.$toast('消费记录不存在')
+        this.$router.push({ path: '/ccm/recode' })
+      }
       this.val = res.data.arr
-      console.log(res.data)
     })
     // this.$axios.post('recode_detail', { Id: par.id }).then(res => {
     //   this.val = res.data.arr
@@ -74,7 +77,7 @@ export default {
   display flex
   justify-content space-evenly
   height 5vh
-  padding .5rem
+  padding 0.5rem
 .record-box
   height 100vh
   background white
