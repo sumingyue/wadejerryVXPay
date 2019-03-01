@@ -1,6 +1,19 @@
 <template>
-  <div>
-    <nav-bar>消费充值</nav-bar>
+  <div class="check-box">
+    <div class="about">
+      <div class="about-box">
+        <h3>人员编号</h3>
+        <span>{{personData.personCode}}</span>
+      </div>
+      <div class="about-box">
+        <h3>人员姓名</h3>
+        <span>{{personData.personName}}</span>
+      </div>
+      <div class="about-box">
+        <h3>部门名称</h3>
+        <span>{{personData.deptName}}</span>
+      </div>
+    </div>
     <div class="recBox">
       <van-row type="flex"
                justify="space-around"
@@ -45,7 +58,8 @@
       <div class="btnBox">
         <div class="ccbPay">
           <form action="http://www.ejf365.com/YDHLPAY/payment/pay"
-                ref="ccb_from">
+                ref="ccb_from"
+                id="ccb_from">
             <input type="hidden"
                    name="payamount"
                    :value="calcRec">
@@ -64,9 +78,12 @@
             <input type="hidden"
                    name="showpayway"
                    :value="base.showpayway">
+            <!-- <input type="hidden"
+                   name="shflowid"
+                   :value="setShflowid"> -->
             <input type="hidden"
                    name="shflowid"
-                   :value="setShflowid">
+                   :value="base.shflowid">
             <input type="hidden"
                    name="backURL"
                    :value="base.backURL">
@@ -78,49 +95,56 @@
                    :value="base.channel">
             <input type="hidden"
                    name="mac"
-                   :value="setMd5">
+                   :value="base.mac">
+            <!-- <input type="hidden"
+                   name="mac"
+                   :value="setMd5"> -->
             <van-button square
                         size="large"
                         @click.prevent="doSubmit"
                         type="primary">充值</van-button>
           </form>
         </div>
-        <div class="wxPay">
-          <van-button square
-                      size="large"
-                      @click="doRec"
-                      type="primary">wx充值</van-button>
-        </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import md5 from 'js-md5'
-import api from 'api/base'
-import BASE from 'common/js/base'
-import navBar from 'components/navbar'
-// import axios from 'axios'
+// import BASE from 'common/js/base'
+// import md5 from 'js-md5'
+// import api from 'api/base'
 export default {
-  components: { navBar },
   data () {
     return {
       checkBtn: 5,
       checkInput: '',
       base: {
-        appcode: 'whzxyy',
-        shcode: '20181105162711517000099313',
-        counterid: '20181105162711596000099316',
-        paymachine: 'm',
-        backURL: `${BASE.ip}${api.ccm.recharge.rechargeBack}`,
-        notifyURL: `${BASE.ip}${api.ccm.recharge.rechargeNotify}`,
-        md5_key: '78ZqLtHiGsTfvp8vzPKAzTN4c',
-        showpayway: '1',
-        channel: 'third'
+        appcode: '',
+        shcode: '',
+        counterid: '',
+        paymachine: '',
+        backURL: '',
+        notifyURL: '',
+        md5_key: '',
+        showpayway: '',
+        channel: '',
+        mac: '',
+        shflowid: ''
       },
-      shflowid: ''
+      // base: {
+      //   appcode: 'whzxyy',
+      //   shcode: '20181105162711517000099313',
+      //   counterid: '20181105162711596000099316',
+      //   paymachine: 'm',
+      //   backURL: `${BASE.ip}${api.ccm.recharge.rechargeBack}`,
+      //   notifyURL: `${BASE.ip}${api.ccm.recharge.rechargeNotify}`,
+      //   md5_key: '78ZqLtHiGsTfvp8vzPKAzTN4c',
+      //   showpayway: '1',
+      //   channel: 'third'
+      // },
+      shflowid: '',
+      personData: ''
     }
   },
   computed: {
@@ -132,20 +156,28 @@ export default {
         recNum = `${this.checkBtn}.00`
       }
       return recNum
-    },
-    setShflowid () {
-      return String(new Date().getTime()) + String(Math.floor(Math.random() * Math.pow(10, 13)))
-    },
-    setMd5 () {
-      let md5Val = md5(this.base.appcode + this.base.shcode + this.calcRec + this.setShflowid + this.base.paymachine + this.base.backURL + this.base.notifyURL + this.base.counterid + this.base.md5_key)
-      return md5Val
     }
+    // setShflowid () {
+    //   return String(new Date().getTime()) + String(Math.floor(Math.random() * Math.pow(10, 13)))
+    // },
+    // setMd5 () {
+    //   let md5Val = md5(this.base.appcode + this.base.shcode + this.calcRec + this.setShflowid + this.base.paymachine + this.base.backURL + this.base.notifyURL + this.base.counterid + this.base.md5_key)
+    //   return md5Val
+    // }
   },
   methods: {
     doSubmit () {
-      this.$api.ccm.recharge.rechargeBackCCB({ fee: this.calcRec, shflowid: this.setShflowid }).then(res => {
+      console.log(this.calcRec)
+      if (this.calcRec === '') {
+        this.$toast('请检查输入金额')
+        return
+      }
+      this.$api.ccm.recharge.rechargeBackCCB({ fee: this.calcRec, personId: this.personData.personId }).then(res => {
         if (res.data.iRet) {
-          this.$refs.ccb_from.submit()
+          this.base = res.data.data
+          this.$nextTick(() => {
+            this.$refs.ccb_from.submit()
+          })
         } else {
           this.$toast(res.data.strError)
         }
@@ -154,43 +186,36 @@ export default {
     },
     checkThis (e) {
       this.checkBtn = e.target.innerText
-    },
-    doRec () {
-      let that = this
-      this.$api.ccm.recharge.recharge({ totalFee: Number(this.calcRec) }).then(result => {
-        function onBridgeReady () {
-          WeixinJSBridge.invoke(
-            'getBrandWCPayRequest', result.data.data,
-            function (res) {
-              if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                that.$router.push({ path: '/ccm/recharge/paySuccess' })
-              }
-            }
-          )
-        }
-
-        if (typeof WeixinJSBridge === 'undefined') {
-          if (document.addEventListener) {
-            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
-          } else if (document.attachEvent) {
-            document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
-            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
-          }
-        } else {
-          onBridgeReady()
-        }
-      })
     }
+  },
+  activated () {
+    this.personData = JSON.parse(window.localStorage.payccb_person_data)
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+.about
+  display flex
+  justify-content space-between
+  align-items center
+  flex-direction column
+  // height 20vh
+  // margin 0 10vw
+  // padding-top 5vw
+  height 10rem
+  padding-top 2rem
+  margin 0 2rem
+.about-box
+  display flex
+  justify-content space-between
+  align-items center
+  width 100%
 .btnBox
   padding 35px
 .recBox
   background white
-  height 100vh
+  height 25rem
   display flex
   flex-direction column
   justify-content space-evenly
@@ -198,4 +223,8 @@ export default {
   width 100%
 .checkInput
   border-bottom 1px solid #4b0
+.check-box
+  // height 100vh
+  height 100%
+  background white
 </style>

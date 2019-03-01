@@ -10,7 +10,10 @@
     </div>
     <a id="nickname"
        class="nickname">{{nickname}}</a>
-    <div id="mybar">
+    <div id="backBtn" @click="backUrl">
+      <van-icon name="arrow-left" color="white" size="20px" style="margin: 12px"/>
+    </div>
+    <div id="setBtn">
       <a href="/mobile/onecard/unbind">
         <img class="barRight"
              :src="setImg">
@@ -43,6 +46,11 @@ export default {
         score: '张三'
       }
     }
+  },
+  methods: {
+    backUrl() {
+      this.$router.go(-1)
+    }
   }
 }
 </script>
@@ -66,9 +74,13 @@ export default {
   border-radius 50%
   background rgba(255, 255, 255, 0.3)
   padding 3px
-#mybar
+#setBtn
   position fixed
   right 0
+  top 0
+#backBtn
+  position fixed
+  left 0
   top 0
 .barRight
   width 20px

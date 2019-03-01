@@ -5,7 +5,8 @@ import axios from 'axios'
 import global from 'common/js/global'
 // import Toast from 'muse-ui-toast'
 import {
-  Notify
+  Notify,
+  Toast
 } from 'vant'
 
 const Axios = axios.create({
@@ -21,6 +22,11 @@ const Axios = axios.create({
 // POST传参序列化(添加请求拦截器)
 Axios.interceptors.request.use(
   config => {
+    Toast.loading({
+      mask: true,
+      message: '加载中...',
+      duration: 0
+    })
     // 在发送请求之前做某件事
     if (config.method === 'post') {
       // 序列化
@@ -53,6 +59,7 @@ Axios.interceptors.request.use(
 // 返回状态判断(添加响应拦截器)
 Axios.interceptors.response.use(
   res => {
+    Toast.clear()
     // 对响应数据做些事
     if (!res.data) {
       Notify({
@@ -71,6 +78,7 @@ Axios.interceptors.response.use(
     return res
   },
   error => {
+    Toast.clear()
     console.log(error)
     console.log(error.response)
     Notify({

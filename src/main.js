@@ -7,6 +7,7 @@ import store from './store'
 import api from './api'
 import axios from 'common/js/axios'
 import lodash from 'lodash'
+import moment from 'moment'
 
 import '@/common/styles/index.styl'
 
@@ -18,6 +19,8 @@ Vue.use(Vant)
 Vue.prototype.$api = api
 Vue.prototype.$axios = axios
 Vue.prototype.$_ = lodash
+Vue.prototype.$moment = moment
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

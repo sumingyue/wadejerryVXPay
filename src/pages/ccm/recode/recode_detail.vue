@@ -1,28 +1,33 @@
 <template>
-  <div class="record-box">
-    <div class="infoContent van-hairline--bottom">
-      <h3 class="title">{{this.$route.query.name}}</h3>
-    </div>
-    <van-card :num="item.total"
-              v-for="item of val[0].wareListDto"
-              :price="item.unitPrice"
-              :desc="item.wareGroup"
-              :title="item.wareName"
-              :thumb="item.photo"
-              centered
-              :key="item.wareCode" />
+  <div>
+    <nav-bar>消费详情</nav-bar>
+    <div class="record-box">
+      <div class="infoContent van-hairline--bottom">
+        <h3 class="title">{{this.$route.query.name}}</h3>
+      </div>
+      <van-card :num="item.total"
+                v-for="item of val[0].wareListDto"
+                :price="item.unitPrice"
+                :desc="item.wareGroup"
+                :title="item.wareName"
+                :thumb="item.photo"
+                centered
+                :key="item.wareCode" />
 
-    <div class="info_val_box">
-      <p class="infoVal">总价: <span class="total">￥{{val[0].totalFee}}</span></p>
-      <p class="infoVal">手机号: <span>{{val[0].phone }}</span></p>
-      <p class="infoVal">送货地址: <span>{{val[0].address}}</span></p>
-      <p class="infoVal">下单时间: <span>{{val[0].orderTime}}</span></p>
+      <div class="info_val_box">
+        <p class="infoVal">总价: <span class="total">￥{{val[0].totalFee}}</span></p>
+        <p class="infoVal">手机号: <span>{{val[0].phone }}</span></p>
+        <p class="infoVal">送货地址: <span>{{val[0].address}}</span></p>
+        <p class="infoVal">下单时间: <span>{{val[0].orderTime}}</span></p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import navBar from 'components/navbar'
 export default {
+  components: { navBar },
   data () {
     return {
       val: [{
@@ -74,7 +79,7 @@ export default {
   display flex
   justify-content space-evenly
   height 5vh
-  padding .5rem
+  padding 0.5rem
 .record-box
   height 100vh
   background white

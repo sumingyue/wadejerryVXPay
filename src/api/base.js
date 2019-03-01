@@ -17,7 +17,7 @@ export default {
       recharge: '/getCcmWeixinOrder',
       rechargeCCB: 'http://www.ejf365.com/YDHLPAY/payment/pay',
       rechargeNotify: '/mobile/ccm/ccb',
-      rechargeBack: '/ccm/recharge/paySuccess',
+      rechargeBack: '/#/pay_ccb/success',
       rechargeBackCCB: '/mobile/ccm/ccbPaymen'
     },
     // 卡挂失
