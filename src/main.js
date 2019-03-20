@@ -9,11 +9,15 @@ import axios from 'common/js/axios'
 import lodash from 'lodash'
 import moment from 'moment'
 
+import 'element-ui/lib/theme-chalk/index.css'
+
+import ElementUI from 'element-ui'
 import '@/common/styles/index.styl'
 
 import Vant from 'vant'
 import 'vant/lib/index.css'
 
+Vue.use(ElementUI)
 Vue.use(Vant)
 
 Vue.prototype.$api = api

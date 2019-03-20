@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "element-ui": "^2.6.1",
     "js-md5": "^0.7.3",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
