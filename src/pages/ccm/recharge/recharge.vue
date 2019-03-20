@@ -144,10 +144,10 @@ export default {
   methods: {
     doSubmit () {
       this.$api.ccm.recharge.rechargeBackCCB({ fee: this.calcRec, shflowid: this.setShflowid }).then(res => {
-        if (res.data.iRet) {
+        if (res.iRet) {
           this.$refs.ccb_from.submit()
         } else {
-          this.$toast(res.data.strError)
+          this.$toast(res.strError)
         }
       })
       return false

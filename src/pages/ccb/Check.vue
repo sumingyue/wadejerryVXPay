@@ -13,6 +13,10 @@
         <h3>部门名称</h3>
         <span>{{personData.deptName}}</span>
       </div>
+      <div class="about-box">
+        <h3>账户余额</h3>
+        <span>{{personData.balance}}</span>
+      </div>
     </div>
     <div class="recBox">
       <van-row type="flex"
@@ -151,7 +155,12 @@ export default {
     calcRec () {
       let recNum
       if (this.checkBtn === '') {
-        recNum = this.checkInput
+        let num = this.checkInput
+        if (Number.isInteger(num)) {
+          recNum = `${this.checkInput}.00`
+        } else {
+          recNum = Number(this.checkInput).toFixed(2)
+        }
       } else {
         recNum = `${this.checkBtn}.00`
       }
@@ -167,19 +176,18 @@ export default {
   },
   methods: {
     doSubmit () {
-      console.log(this.calcRec)
-      if (this.calcRec === '') {
+      if (this.calcRec === '' || this.calcRec === '0.00') {
         this.$toast('请检查输入金额')
         return
       }
       this.$api.ccm.recharge.rechargeBackCCB({ fee: this.calcRec, personId: this.personData.personId }).then(res => {
-        if (res.data.iRet) {
-          this.base = res.data.data
+        if (res.iRet) {
+          this.base = res.data
           this.$nextTick(() => {
             this.$refs.ccb_from.submit()
           })
         } else {
-          this.$toast(res.data.strError)
+          this.$toast(res.strError)
         }
       })
       return false

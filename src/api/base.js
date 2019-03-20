@@ -1,4 +1,7 @@
 export default {
+  basic: {
+    getInfo: '/weixin/opened/basicInfo'
+  },
   ccm: {
     // 订餐
     food: {

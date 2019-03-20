@@ -55,8 +55,8 @@ export default {
   actions: {
     saveGoodsList(ctx, par) {
       api.ccm.foods.goodsList(par).then(res => {
-        ctx.commit('setGoodsData', res.data.wareListDtoList)
-        ctx.commit('setMenuList', res.data.ccmMenuDtoList)
+        ctx.commit('setGoodsData', res.wareListDtoList)
+        ctx.commit('setMenuList', res.ccmMenuDtoList)
       })
     }
   }

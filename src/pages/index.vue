@@ -17,6 +17,7 @@
 
 <script>
 import navHeader from 'components/header'
+import cookie from 'common/js/cookie'
 export default {
   components: {
     navHeader
@@ -44,6 +45,11 @@ export default {
         title: '信息发布'
       }]
     }
+  },
+  activated() {
+    this.$api.basic.getInfo().then(res => {
+      cookie.set(res.map, 365)
+    })
   }
 }
 </script>

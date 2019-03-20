@@ -21,7 +21,7 @@ export default {
   actions: {
     saveMerchantList(ctx) {
       api.ccm.foods.merchant().then(res => {
-        ctx.commit('setMerchant', res.data.ccmMerchantDtoArr)
+        ctx.commit('setMerchant', res.ccmMerchantDtoArr)
       })
     }
   }

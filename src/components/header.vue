@@ -10,8 +10,12 @@
     </div>
     <a id="nickname"
        class="nickname">{{nickname}}</a>
-    <div id="backBtn" @click="backUrl">
-      <van-icon name="arrow-left" color="white" size="20px" style="margin: 12px"/>
+    <div id="backBtn"
+         @click="backUrl">
+      <van-icon name="arrow-left"
+                color="white"
+                size="20px"
+                style="margin: 12px" />
     </div>
     <div id="setBtn">
       <a href="/mobile/onecard/unbind">
@@ -34,6 +38,7 @@
 </template>
 
 <script>
+import cookie from 'common/js/cookie'
 export default {
   data () {
     return {
@@ -48,8 +53,38 @@ export default {
     }
   },
   methods: {
-    backUrl() {
+    backUrl () {
       this.$router.go(-1)
+    }
+  },
+  activated () {
+    debugger
+    let cookieData = cookie.getAll()
+    if (cookieData.lnegth === undefined) {
+      this.$api.basic.getInfo().then(res => {
+        const data = res.map
+        cookie.set(data, 365)
+        this.$nextTick(() => {
+          this.photo = data.headimgurl
+          this.nickname = data.userName
+          this.info = {
+            share: data.personCode,
+            collection: data.personId,
+            score: data.personName
+          }
+        })
+      })
+    } else {
+      this.$nextTick(() => {
+        // this.photo = require(cookieData.headimgurl)
+        this.photo = cookieData.headimgurl
+        this.nickname = cookieData.userName
+        this.info = {
+          share: cookieData.personCode,
+          collection: cookieData.personId,
+          score: cookieData.personName
+        }
+      })
     }
   }
 }

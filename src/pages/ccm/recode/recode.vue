@@ -55,7 +55,7 @@ export default {
         year: date.slice(0, 4),
         month
       }).then(res => {
-        this.info = res.data
+        this.info = res
         this.showPick = false
       })
     }
@@ -66,7 +66,7 @@ export default {
       year: date.getUTCFullYear(),
       month: date.getMonth() + 1
     }).then(res => {
-      this.info = res.data
+      this.info = res
     })
 
     this.date = `${date.getUTCFullYear()}年${date.getMonth() + 1}月`

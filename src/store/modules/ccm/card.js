@@ -16,7 +16,7 @@ export default {
   actions: {
     saveCard(ctx) {
       api.ccm.cardLoss.cardLoss().then(res => {
-        ctx.commit('setCard', res.data.systemAuthDtoResult)
+        ctx.commit('setCard', res.systemAuthDtoResult)
       })
     }
   }

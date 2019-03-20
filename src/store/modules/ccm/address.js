@@ -35,7 +35,7 @@ export default {
   actions: {
     saveAddress(ctx) {
       api.ccm.address.address().then(res => {
-        ctx.commit('setAddress', res.data.data)
+        ctx.commit('setAddress', res.data)
       })
     }
   }

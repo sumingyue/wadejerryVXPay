@@ -57,10 +57,10 @@ export default {
       data.address = this.getAddressChoose
 
       this.$api.ccm.foods.pay(data).then(res => {
-        if (res.data.iRet) {
+        if (res.iRet) {
           this.$router.push({ path: '/ccm/recharge/paySuccess' })
         } else {
-          this.$toast.fail(res.data.strError)
+          this.$toast.fail(res.strError)
         }
       })
     }

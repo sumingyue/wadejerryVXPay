@@ -41,15 +41,15 @@ export default {
   activated () {
     let par = this.$route.query
     this.$api.ccm.recode.recode({ Id: par.id }).then(res => {
-      if (res.data.arr[0].wareListDto === []) {
+      if (res.arr[0].wareListDto === []) {
         this.$toast('消费记录不存在')
         this.$router.push({ path: '/ccm/recode' })
       }
-      this.val = res.data.arr
+      this.val = res.arr
     })
     // this.$axios.post('recode_detail', { Id: par.id }).then(res => {
-    //   this.val = res.data.arr
-    //   console.log(res.data.arr)
+    //   this.val = res.arr
+    //   console.log(res.arr)
     // })
   }
 }
